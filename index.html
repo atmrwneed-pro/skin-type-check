@@ -143,6 +143,26 @@ h1.title{
 .tags span{font-size:.82rem;padding:6px 13px;border-radius:99px;background:var(--cream);border:1px solid var(--line);}
 .tags.good span{background:#f3f7f1;border-color:#dde9d8;color:#5b7150;}
 .tags.bad span{background:#fbf2f1;border-color:#eddad7;color:#9c5b53;}
+/* ===== 価格帯別おすすめ商品 ===== */
+.products-panel .pnote{font-size:.83rem;color:var(--sub);margin:-2px 0 16px;}
+.ptier{margin-bottom:16px;}
+.ptier:last-child{margin-bottom:0;}
+.ptier-head{display:flex;align-items:baseline;gap:10px;margin-bottom:9px;}
+.ptier-range{font-family:"Noto Serif JP",serif;font-size:1rem;font-weight:600;color:var(--ink);}
+.ptier-label{font-size:.68rem;letter-spacing:.12em;color:var(--accent-d);background:var(--accent-s);padding:3px 11px;border-radius:99px;}
+.pcards{display:flex;flex-direction:column;gap:10px;}
+.pcard{display:flex;align-items:center;gap:14px;padding:11px;border:1px solid var(--line);border-radius:13px;background:var(--cream);transition:.18s;}
+.pcard:hover{border-color:var(--accent);background:#fff;}
+.pphoto{flex:0 0 auto;width:78px;height:78px;border-radius:11px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pphoto img{width:100%;height:100%;object-fit:cover;}
+.pphoto.ph{background:linear-gradient(150deg,#f1e6e1 0%,#e3cfc8 100%);font-size:1.7rem;color:#fff;}
+.pinfo{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.pname{font-size:.94rem;font-weight:500;color:var(--ink);line-height:1.45;}
+a.pname{transition:color .2s;}
+a.pname:hover{color:var(--accent-d);text-decoration:underline;}
+.pprice{font-family:"Jost",sans-serif;font-size:.86rem;color:var(--accent-d);letter-spacing:.04em;}
+@media(max-width:560px){ .pphoto{width:64px;height:64px;} .pname{font-size:.88rem;} }
+
 .disclaimer{font-size:.76rem;color:var(--sub);text-align:center;margin-top:28px;line-height:1.7;}
 
 footer{text-align:center;padding:24px;color:var(--sub);font-size:.74rem;border-top:1px solid var(--line);background:#fff;}
@@ -327,23 +347,50 @@ const TYPES = {
     desc:"皮脂分泌が活発。テカり・毛穴・ニキビが気になりやすいタイプ。",
     care:"皮脂を取りすぎるとかえって過剰分泌に。さっぱり仕上げでも“水分の保湿”は省かないのがコツ。ジェルや乳液でうるおいを補って。",
     good:["ナイアシンアミド","ビタミンC誘導体","BHA（サリチル酸）","アゼライン酸","亜鉛(ジンク)"],
-    bad:["重いオイル・クリーム","過剰な洗浄(脱脂しすぎ)","ベタつくワセリン厚塗り"] },
+    bad:["重いオイル・クリーム","過剰な洗浄(脱脂しすぎ)","ベタつくワセリン厚塗り"],
+    products:[
+      {name:"ナイアシンアミド 化粧水", price:"¥1,500", img:"", url:""},   // 〜2,000円
+      {name:"BHA配合 さっぱり美容液", price:"¥3,800", img:"", url:""},    // 2,000〜5,000円
+      {name:"高濃度ビタミンC 美容液", price:"¥6,800", img:"", url:""},    // 5,000円〜
+    ] },
   dry:    { name:"乾燥肌", en:"Dry",
     desc:"皮脂も水分も不足ぎみ。つっぱり・粉ふき・小じわが出やすいタイプ。",
     care:"“水分を入れて油分でフタ”が基本。洗顔はぬるま湯で短時間、ゴシゴシしない。クリームやバームで水分の蒸発を防いで。",
     good:["セラミド","ヒアルロン酸","グリセリン","スクワラン","シアバター","アミノ酸"],
-    bad:["高濃度アルコール","強い洗浄成分(脱脂)","刺激の強い酸・レチノールの使いすぎ"] },
+    bad:["高濃度アルコール","強い洗浄成分(脱脂)","刺激の強い酸・レチノールの使いすぎ"],
+    products:[
+      {name:"セラミド高保湿 化粧水", price:"¥1,650", img:"", url:""},
+      {name:"ヒアルロン酸 とろみ美容液", price:"¥3,300", img:"", url:""},
+      {name:"セラミドリッチ 保湿クリーム", price:"¥7,500", img:"", url:""},
+    ] },
   combo:  { name:"混合肌（インナードライ）", en:"Combination",
     desc:"Tゾーンはテカるのに、ほおは乾く。水分不足が皮脂を招いているタイプ。",
     care:"全顔を一律でケアしないのがポイント。まず水分をしっかり。Tゾーンは軽く、ほお・口元は重ねづけで部位ごとに調整を。",
     good:["ナイアシンアミド","セラミド","ヒアルロン酸","ビタミンC誘導体(部分使い)"],
-    bad:["全顔一律の強いケア","油分の塗りすぎ(Tゾーン)","保湿不足のさっぱりケアだけ"] },
+    bad:["全顔一律の強いケア","油分の塗りすぎ(Tゾーン)","保湿不足のさっぱりケアだけ"],
+    products:[
+      {name:"セラミド＋皮脂ケア 化粧水", price:"¥1,800", img:"", url:""},
+      {name:"ナイアシンアミド 美容液", price:"¥3,500", img:"", url:""},
+      {name:"部位別ケア 保湿クリーム", price:"¥6,000", img:"", url:""},
+    ] },
   normal: { name:"普通肌", en:"Normal",
     desc:"皮脂と水分のバランスが良好。トラブルが少ない理想的なタイプ。",
     care:"いまの状態をキープするのが目標。季節で油分・水分を微調整し、UVケアと抗酸化で“先まわり”の予防を。",
     good:["セラミド","ヒアルロン酸","ビタミンC","ナイアシンアミド","日中のUVケア"],
-    bad:["過度なケア(やりすぎ)","季節を無視した同じケアの継続"] },
+    bad:["過度なケア(やりすぎ)","季節を無視した同じケアの継続"],
+    products:[
+      {name:"バランス保湿 化粧水", price:"¥1,400", img:"", url:""},
+      {name:"抗酸化ビタミンC 美容液", price:"¥3,200", img:"", url:""},
+      {name:"エイジングケア クリーム", price:"¥6,500", img:"", url:""},
+    ] },
 };
+
+/* 価格帯の見出し（products配列の0/1/2番目に対応） */
+const TIERS = [
+  {range:"〜2,000円",       label:"プチプラ"},
+  {range:"2,000〜5,000円",  label:"デイリー"},
+  {range:"5,000円〜",       label:"ご褒美"},
+];
 
 const SENS = {
   desc:"バリア機能が低下し、刺激に反応しやすい状態。上のタイプのケアを“低刺激・シンプル”に寄せるのがおすすめ。",
@@ -436,6 +483,33 @@ function decide(s){
   return {key, sens:s.sens>=TH.sens};
 }
 
+/* ===== 価格帯別おすすめ商品 ===== */
+function productCard(p){
+  const photo = p.img
+    ? `<span class="pphoto"><img src="${p.img}" alt="${p.name}" loading="lazy"></span>`
+    : `<span class="pphoto ph">🧴</span>`;
+  const name = p.url
+    ? `<a class="pname" href="${p.url}" target="_blank" rel="noopener">${p.name}</a>`
+    : `<span class="pname">${p.name}</span>`;
+  return `<div class="pcard">${photo}<span class="pinfo">${name}<span class="pprice">${p.price}</span></span></div>`;
+}
+function renderProducts(t){
+  if(!t.products) return "";
+  const rows = TIERS.map((tier,i)=>{
+    const p = t.products[i];
+    if(!p) return "";
+    return `<div class="ptier">
+      <div class="ptier-head"><span class="ptier-range">${tier.range}</span><span class="ptier-label">${tier.label}</span></div>
+      <div class="pcards">${productCard(p)}</div>
+    </div>`;
+  }).join("");
+  return `<div class="panel products-panel">
+    <h3><span class="dot"></span>価格帯別のおすすめ</h3>
+    <p class="pnote">あなたの肌タイプに合うアイテムを、お手頃〜ご褒美まで。</p>
+    ${rows}
+  </div>`;
+}
+
 function showResult(){
   const s=score(), r=decide(s), t=TYPES[r.key];
   const oilP=Math.round(s.oil/MAX.oil*100);
@@ -480,6 +554,7 @@ function showResult(){
       <div class="tags bad">${t.bad.map(x=>`<span>${x}</span>`).join("")}</div>
     </div>
     ${sensPanel}
+    ${renderProducts(t)}
 
     <p class="disclaimer">※ この診断はセルフチェックの目安です。肌悩みが続く・強い症状がある場合は皮膚科専門医にご相談ください。<br>結果は季節や体調で変わります。気になったら定期的に再チェックを。</p>
     <div class="btn-row">
