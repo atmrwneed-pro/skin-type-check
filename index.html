@@ -155,13 +155,18 @@ h1.title{
 .pcard:hover{border-color:var(--accent);background:#fff;}
 .pphoto{flex:0 0 auto;width:78px;height:78px;border-radius:11px;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 .pphoto img{width:100%;height:100%;object-fit:cover;}
-.pphoto.ph{background:linear-gradient(150deg,#f1e6e1 0%,#e3cfc8 100%);font-size:1.7rem;color:#fff;}
-.pinfo{display:flex;flex-direction:column;gap:4px;min-width:0;}
+.pphoto.illust{background:var(--accent-s);color:var(--accent-d);}
+.pphoto.illust svg{width:46px;height:46px;}
+.pinfo{display:flex;flex-direction:column;gap:3px;min-width:0;}
 .pname{font-size:.94rem;font-weight:500;color:var(--ink);line-height:1.45;}
 a.pname{transition:color .2s;}
 a.pname:hover{color:var(--accent-d);text-decoration:underline;}
+.pnote2{font-size:.76rem;color:var(--sub);line-height:1.4;}
+.pmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:3px;}
+.pby{font-size:.67rem;color:var(--accent-d);background:#fff;border:1px solid var(--accent-s);padding:2px 9px;border-radius:99px;white-space:nowrap;}
 .pprice{font-family:"Jost",sans-serif;font-size:.86rem;color:var(--accent-d);letter-spacing:.04em;}
-@media(max-width:560px){ .pphoto{width:64px;height:64px;} .pname{font-size:.88rem;} }
+.psource{font-size:.74rem;color:var(--sub);margin-top:16px;line-height:1.6;}
+@media(max-width:560px){ .pphoto{width:64px;height:64px;} .pphoto.illust svg{width:38px;height:38px;} .pname{font-size:.88rem;} }
 
 .disclaimer{font-size:.76rem;color:var(--sub);text-align:center;margin-top:28px;line-height:1.7;}
 
@@ -349,9 +354,9 @@ const TYPES = {
     good:["ナイアシンアミド","ビタミンC誘導体","BHA（サリチル酸）","アゼライン酸","亜鉛(ジンク)"],
     bad:["重いオイル・クリーム","過剰な洗浄(脱脂しすぎ)","ベタつくワセリン厚塗り"],
     products:[
-      {name:"ナイアシンアミド 化粧水", price:"¥1,500", img:"", url:""},   // 〜2,000円
-      {name:"BHA配合 さっぱり美容液", price:"¥3,800", img:"", url:""},    // 2,000〜5,000円
-      {name:"高濃度ビタミンC 美容液", price:"¥6,800", img:"", url:""},    // 5,000円〜
+      {name:"メラノCC 薬用しみ集中対策 美容液", price:"約¥1,200", by:"友利新 先生", note:"ビタミンC・毛穴ケア", icon:"serum", url:""},        // 〜2,000円
+      {name:"オバジC10 セラム", price:"約¥4,400", by:"", note:"ビタミンC美容液・皮脂/毛穴", icon:"serum", url:""},                          // 2,000〜5,000円
+      {name:"オバジC25 セラム ネオ", price:"約¥11,000", by:"", note:"高濃度ビタミンC", icon:"serum", url:""},                              // 5,000円〜
     ] },
   dry:    { name:"乾燥肌", en:"Dry",
     desc:"皮脂も水分も不足ぎみ。つっぱり・粉ふき・小じわが出やすいタイプ。",
@@ -359,9 +364,9 @@ const TYPES = {
     good:["セラミド","ヒアルロン酸","グリセリン","スクワラン","シアバター","アミノ酸"],
     bad:["高濃度アルコール","強い洗浄成分(脱脂)","刺激の強い酸・レチノールの使いすぎ"],
     products:[
-      {name:"セラミド高保湿 化粧水", price:"¥1,650", img:"", url:""},
-      {name:"ヒアルロン酸 とろみ美容液", price:"¥3,300", img:"", url:""},
-      {name:"セラミドリッチ 保湿クリーム", price:"¥7,500", img:"", url:""},
+      {name:"セザンヌ スキンコンディショナー 高保湿", price:"約¥800", by:"かずのすけ さん", note:"ヒト型セラミド3種・大容量", icon:"lotion", url:""},
+      {name:"ヒフミド エッセンスローション", price:"約¥3,300", by:"かずのすけ さん", note:"高濃度ヒト型セラミド", icon:"lotion", url:""},
+      {name:"エトヴォス モイスチャライジングセラム", price:"約¥5,500", by:"かずのすけ さん", note:"ヒト型セラミド5種", icon:"serum", url:""},
     ] },
   combo:  { name:"混合肌（インナードライ）", en:"Combination",
     desc:"Tゾーンはテカるのに、ほおは乾く。水分不足が皮脂を招いているタイプ。",
@@ -369,9 +374,9 @@ const TYPES = {
     good:["ナイアシンアミド","セラミド","ヒアルロン酸","ビタミンC誘導体(部分使い)"],
     bad:["全顔一律の強いケア","油分の塗りすぎ(Tゾーン)","保湿不足のさっぱりケアだけ"],
     products:[
-      {name:"セラミド＋皮脂ケア 化粧水", price:"¥1,800", img:"", url:""},
-      {name:"ナイアシンアミド 美容液", price:"¥3,500", img:"", url:""},
-      {name:"部位別ケア 保湿クリーム", price:"¥6,000", img:"", url:""},
+      {name:"無印良品 敏感肌用 高保湿化粧水", price:"約¥1,190", by:"", note:"低刺激でバランス保湿", icon:"lotion", url:""},
+      {name:"ザ・オーディナリー ナイアシンアミド10%+亜鉛1%", price:"約¥2,500", by:"友利新 先生", note:"Tゾーンの皮脂・毛穴に", icon:"serum", url:""},
+      {name:"ヒフミド エッセンスクリーム", price:"約¥6,600", by:"かずのすけ さん", note:"乾く頬に高濃度セラミド", icon:"cream", url:""},
     ] },
   normal: { name:"普通肌", en:"Normal",
     desc:"皮脂と水分のバランスが良好。トラブルが少ない理想的なタイプ。",
@@ -379,9 +384,9 @@ const TYPES = {
     good:["セラミド","ヒアルロン酸","ビタミンC","ナイアシンアミド","日中のUVケア"],
     bad:["過度なケア(やりすぎ)","季節を無視した同じケアの継続"],
     products:[
-      {name:"バランス保湿 化粧水", price:"¥1,400", img:"", url:""},
-      {name:"抗酸化ビタミンC 美容液", price:"¥3,200", img:"", url:""},
-      {name:"エイジングケア クリーム", price:"¥6,500", img:"", url:""},
+      {name:"ビオレUV アクアリッチ ウォータリーエッセンス", price:"約¥800", by:"", note:"日中のUVケア", icon:"uv", url:""},
+      {name:"ラ ロッシュ ポゼ UVイデア XL トーンアップ", price:"約¥3,800", by:"友利新 先生", note:"敏感肌対応・UV下地", icon:"uv", url:""},
+      {name:"アスタリフト ジェリー アクアリスタ", price:"約¥9,900", by:"", note:"先行美容液・エイジングケア", icon:"serum", url:""},
     ] },
 };
 
@@ -484,14 +489,26 @@ function decide(s){
 }
 
 /* ===== 価格帯別おすすめ商品 ===== */
+/* イラスト（商品カテゴリ別の簡易SVG・写真の代わり） */
+function iconSvg(type){
+  const paths = {
+    lotion:'<rect x="9" y="2.6" width="6" height="3" rx="1"/><path d="M7.5 9.5C7.5 7.6 9 6 12 6s4.5 1.6 4.5 3.5V19a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2z"/><line x1="7.5" y1="12.5" x2="16.5" y2="12.5"/>',
+    serum:'<rect x="9.5" y="2.4" width="5" height="2.6" rx="1"/><line x1="12" y1="5" x2="12" y2="7"/><path d="M7.6 11c0-2.2 2-4 4.4-4s4.4 1.8 4.4 4v7a2.5 2.5 0 0 1-2.5 2.5h-3.8A2.5 2.5 0 0 1 7.6 18z"/>',
+    cream:'<ellipse cx="12" cy="7.5" rx="6" ry="2.2"/><path d="M6 7.5v9c0 1.4 2.7 2.6 6 2.6s6-1.2 6-2.6v-9"/>',
+    uv:'<path d="M9 4h6l-.6 14.6a2 2 0 0 1-2 1.9h-.8a2 2 0 0 1-2-1.9z"/><line x1="9.2" y1="8" x2="14.8" y2="8"/><circle cx="12" cy="13.2" r="1.5"/>',
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${paths[type]||paths.lotion}</svg>`;
+}
 function productCard(p){
-  const photo = p.img
+  const media = p.img
     ? `<span class="pphoto"><img src="${p.img}" alt="${p.name}" loading="lazy"></span>`
-    : `<span class="pphoto ph">🧴</span>`;
+    : `<span class="pphoto illust">${iconSvg(p.icon)}</span>`;
   const name = p.url
     ? `<a class="pname" href="${p.url}" target="_blank" rel="noopener">${p.name}</a>`
     : `<span class="pname">${p.name}</span>`;
-  return `<div class="pcard">${photo}<span class="pinfo">${name}<span class="pprice">${p.price}</span></span></div>`;
+  const note = p.note ? `<span class="pnote2">${p.note}</span>` : "";
+  const by   = p.by   ? `<span class="pby">${p.by}</span>` : "";
+  return `<div class="pcard">${media}<span class="pinfo">${name}${note}<span class="pmeta">${by}<span class="pprice">${p.price}</span></span></span></div>`;
 }
 function renderProducts(t){
   if(!t.products) return "";
@@ -507,6 +524,7 @@ function renderProducts(t){
     <h3><span class="dot"></span>価格帯別のおすすめ</h3>
     <p class="pnote">あなたの肌タイプに合うアイテムを、お手頃〜ご褒美まで。</p>
     ${rows}
+    <p class="psource">※ 友利新先生・かずのすけさんのYouTube発信を参考にした編集ピックです。価格・仕様は目安で、変わる場合があります。</p>
   </div>`;
 }
 
