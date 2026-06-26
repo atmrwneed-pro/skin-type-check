@@ -165,7 +165,6 @@ a.pname:hover{color:var(--accent-d);text-decoration:underline;}
 .pmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:3px;}
 .pby{font-size:.67rem;color:var(--accent-d);background:#fff;border:1px solid var(--accent-s);padding:2px 9px;border-radius:99px;white-space:nowrap;}
 .pprice{font-family:"Jost",sans-serif;font-size:.86rem;color:var(--accent-d);letter-spacing:.04em;}
-.psource{font-size:.74rem;color:var(--sub);margin-top:16px;line-height:1.6;}
 @media(max-width:560px){ .pphoto{width:64px;height:64px;} .pphoto.illust svg{width:38px;height:38px;} .pname{font-size:.88rem;} }
 
 .disclaimer{font-size:.76rem;color:var(--sub);text-align:center;margin-top:28px;line-height:1.7;}
@@ -374,7 +373,7 @@ const TYPES = {
     good:["ナイアシンアミド","セラミド","ヒアルロン酸","ビタミンC誘導体(部分使い)"],
     bad:["全顔一律の強いケア","油分の塗りすぎ(Tゾーン)","保湿不足のさっぱりケアだけ"],
     products:[
-      {name:"無印良品 敏感肌用 高保湿化粧水", price:"約¥1,190", by:"", note:"低刺激でバランス保湿", icon:"lotion", url:""},
+      {name:"肌ラボ 白潤 薬用美白化粧水", price:"約¥850", by:"", note:"薬用美白(アルブチン)・ヒアルロン酸", icon:"lotion", url:""},
       {name:"ザ・オーディナリー ナイアシンアミド10%+亜鉛1%", price:"約¥2,500", by:"友利新 先生", note:"Tゾーンの皮脂・毛穴に", icon:"serum", url:""},
       {name:"ヒフミド エッセンスクリーム", price:"約¥6,600", by:"かずのすけ さん", note:"乾く頬に高濃度セラミド", icon:"cream", url:""},
     ] },
@@ -524,7 +523,6 @@ function renderProducts(t){
     <h3><span class="dot"></span>価格帯別のおすすめ</h3>
     <p class="pnote">あなたの肌タイプに合うアイテムを、お手頃〜ご褒美まで。</p>
     ${rows}
-    <p class="psource">※ 一部は友利新先生・かずのすけさんのYouTube発信を参考にした編集ピックです。価格・仕様は目安で、変わる場合があります。</p>
   </div>`;
 }
 
