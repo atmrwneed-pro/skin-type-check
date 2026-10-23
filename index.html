@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>肌タイプ診断 ── むっちの成分ノート</title>
+<meta name="description" content="洗顔後テスト＋質問で、肌タイプと5つの肌傾向を判定。日本化粧品検定1級のむっちが、合う成分と価格帯別のおすすめまで提案します。写真不要・約2分。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://atmrwneed-pro.github.io/skin-type-check/">
+<meta property="og:title" content="肌タイプ診断｜むっちの成分ノート">
+<meta property="og:description" content="洗顔後テスト＋質問で、肌タイプと5つの肌傾向を判定。合う成分と価格帯別のおすすめまで。写真不要・約2分。">
+<meta property="og:image" content="https://atmrwneed-pro.github.io/skin-type-check/assets/skin-check-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,7 +26,7 @@
   --ink:#2c2825; --sub:#877d75; --bg:#ffffff; --cream:#faf6f2;
   --line:#ece4dc; --accent:#b78c82; --accent-d:#9c7269;
   --accent-s:#f1e6e1; --gold:#b39a6c;
-  --oil:#c9a15a; --dry:#7fa9c2; --sens:#c97f8f;
+  --sens:#c97f8f;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -125,13 +135,21 @@ h1.title{
 }
 .result-desc{text-align:center;color:var(--sub);font-size:.92rem;max-width:480px;margin:18px auto 8px;}
 
-.bars{margin:30px 0;display:flex;flex-direction:column;gap:16px;}
-.barline{display:grid;grid-template-columns:74px 1fr 40px;align-items:center;gap:12px;}
-.barline .lab{font-size:.82rem;color:var(--ink);}
-.barline .track{height:9px;background:var(--line);border-radius:99px;overflow:hidden;}
-.barline .track > i{display:block;height:100%;border-radius:99px;transition:width .8s ease;}
-.barline .val{font-family:"Jost",sans-serif;font-size:.78rem;color:var(--sub);text-align:right;}
-.fill-oil{background:var(--oil);} .fill-dry{background:var(--dry);} .fill-sens{background:var(--sens);}
+/* レーダーチャート（1人分＝1色。線と点は白背景で4.18:1の濃い色） */
+.radar-wrap{margin:22px auto 6px;text-align:center;}
+.radar{width:100%;max-width:400px;height:auto;display:block;margin:0 auto;overflow:visible;}
+.radar .rg{fill:none;stroke:var(--line);stroke-width:1;}
+.radar .rshape{fill:rgba(183,140,130,.22);stroke:var(--accent-d);stroke-width:2;stroke-linejoin:round;}
+.radar .rdot{fill:var(--accent-d);stroke:#fff;stroke-width:2;transition:r .15s;}
+.radar .rhit{fill:transparent;}
+.radar .rpt{outline:none;}
+.radar .rpt:hover .rdot,.radar .rpt:focus .rdot{r:6.5;}
+.radar .rlab{font-family:"Noto Sans JP",sans-serif;font-size:14px;fill:var(--ink);}
+.radar .rval{font-family:"Jost",sans-serif;font-size:14px;font-weight:500;fill:var(--ink);}
+.radar-wrap figcaption{font-size:.76rem;color:var(--sub);margin-top:2px;}
+.concern + .concern{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
+.concern-title{font-weight:500;font-size:.9rem;margin-bottom:4px;}
+.concern-note{font-size:.84rem;color:var(--sub);margin-top:10px;}
 
 .panel{border:1px solid var(--line);border-radius:15px;padding:22px 24px;margin-top:16px;background:#fff;}
 .panel h3{font-family:"Noto Serif JP",serif;font-size:1.05rem;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:9px;}
@@ -167,6 +185,28 @@ a.pname:hover{color:var(--accent-d);text-decoration:underline;}
 .psource{font-size:.74rem;color:var(--sub);margin-top:16px;line-height:1.6;}
 @media(max-width:560px){ .pphoto{width:64px;height:64px;} .pphoto.illust svg{width:38px;height:38px;} .pname{font-size:.88rem;} }
 
+/* ===== 監修者 ===== */
+.supervisor{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px auto 0;}
+.supervisor img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--accent-s);}
+.supervisor .who{font-size:.78rem;color:var(--sub);line-height:1.5;text-align:left;}
+.supervisor .who b{display:block;color:var(--ink);font-weight:500;font-size:.86rem;}
+.panel.voice{display:flex;gap:16px;align-items:flex-start;background:var(--cream);border-color:var(--cream);}
+.panel.voice img{flex:0 0 56px;width:56px;height:56px;border-radius:50%;object-fit:cover;}
+.panel.voice .who{font-size:.76rem;color:var(--sub);margin-top:8px;}
+
+/* ===== 導線・シェア ===== */
+.cta{margin-top:28px;padding:26px 24px;border-radius:16px;background:linear-gradient(150deg,#f6ece7 0%,#efe2db 100%);text-align:center;}
+.cta h3{font-family:"Noto Serif JP",serif;font-size:1.1rem;font-weight:600;margin-bottom:8px;}
+.cta p{font-size:.86rem;color:var(--sub);margin-bottom:18px;}
+.cta .btn-row{margin-top:0;}
+a.btn{text-decoration:none;}
+.btn.line{background:#06c755;border-color:#06c755;}
+.btn.line:hover{background:#05a948;border-color:#05a948;}
+.share{margin-top:26px;text-align:center;}
+.share .lab{font-size:.78rem;color:var(--sub);letter-spacing:.1em;margin-bottom:10px;}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+a.chip{text-decoration:none;}
+
 .disclaimer{font-size:.76rem;color:var(--sub);text-align:center;margin-top:28px;line-height:1.7;}
 
 footer{text-align:center;padding:24px;color:var(--sub);font-size:.74rem;border-top:1px solid var(--line);background:#fff;}
@@ -181,7 +221,6 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
   h1.title{font-size:1.55rem;}
   .q-text{font-size:1.12rem;}
   .result-type h2{font-size:1.8rem;}
-  .barline{grid-template-columns:64px 1fr 36px;}
   .timer-display{font-size:2.8rem;}
 }
 </style>
@@ -204,11 +243,15 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
     <section id="screen-intro" class="fade">
       <div class="eyebrow">Skin Type Diagnosis</div>
       <h1 class="title serif">あなたの肌タイプ、<br>正しく知っていますか？</h1>
-      <p class="lead">「洗顔後テスト」＋10個の質問で、皮脂・水分・敏感さの3つの軸から<br>あなたの肌タイプを判定します。所要時間 約2分。</p>
+      <p class="lead">「洗顔後テスト」と質問（全14問）で、肌タイプと<br>皮脂・乾燥・敏感・ハリ・シミの5つの傾向を判定します。<br>所要時間 約2分。</p>
+      <div class="supervisor">
+        <img src="assets/skin-check-supervisor.jpg" alt="監修者 むっち" width="44" height="44">
+        <div class="who"><b>監修：むっち</b>日本化粧品検定1級／集英社MAQUIA公式ブロガー</div>
+      </div>
       <div class="steps">
         <div class="step"><div class="no">1</div><div class="txt"><b>洗顔後テスト（実測）</b><span>洗顔して何もつけず10〜20分。アプリのタイマーも使えます。</span></div></div>
-        <div class="step"><div class="no">2</div><div class="txt"><b>10個の質問</b><span>皮脂・水分・敏感さについて、当てはまるものを選ぶだけ。</span></div></div>
-        <div class="step"><div class="no">3</div><div class="txt"><b>結果＋成分アドバイス</b><span>4タイプ＋敏感肌判定。合う成分／避けたい成分まで提案。</span></div></div>
+        <div class="step"><div class="no">2</div><div class="txt"><b>質問に答える</b><span>皮脂・乾燥・敏感さ・ハリ・シミについて、当てはまるものを選ぶだけ。</span></div></div>
+        <div class="step"><div class="no">3</div><div class="txt"><b>結果＋成分アドバイス</b><span>4タイプ＋敏感肌の判定と5項目のチャート。合う成分と価格帯別のおすすめまで。</span></div></div>
       </div>
       <div class="btn-row"><button class="btn" onclick="go('test')">診断をはじめる</button></div>
     </section>
@@ -226,6 +269,7 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
           <button class="chip on" data-min="15" onclick="setTimer(15,this)">15分</button>
           <button class="chip" data-min="20" onclick="setTimer(20,this)">20分</button>
           <button class="chip" id="timerToggle" onclick="toggleTimer()">タイマー開始</button>
+          <button class="chip" onclick="resetTimer()">リセット</button>
         </div>
       </div>
       <div class="btn-row">
@@ -237,7 +281,7 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
     <!-- ===== 質問 ===== -->
     <section id="screen-quiz" class="hidden">
       <div class="progress"><i id="progBar"></i></div>
-      <div class="q-count" id="qCount">QUESTION 1 / 10</div>
+      <div class="q-count" id="qCount">QUESTION 1 / 14</div>
       <div style="text-align:center;"><span class="q-cat" id="qCat">皮脂</span></div>
       <div class="q-text serif" id="qText">―</div>
       <div class="opts" id="qOpts"></div>
@@ -338,10 +382,58 @@ const QUESTIONS = [
       {t:"ふつう", oil:0,dry:0,sens:1},
       {t:"なりにくい", oil:0,dry:0,sens:0},
     ]},
+  { cat:"ハリ",
+    text:"目元・口元の小じわや、ほうれい線が気になる？",
+    opts:[
+      {t:"よく気になる", firm:2},
+      {t:"少し気になる", firm:1},
+      {t:"気にならない", firm:0},
+    ]},
+  { cat:"ハリ",
+    text:"朝起きたとき、枕やシーツの跡が顔に残りやすい？",
+    opts:[
+      {t:"なかなか消えない", firm:2},
+      {t:"少し残る", firm:1},
+      {t:"すぐ消える", firm:0},
+    ]},
+  { cat:"シミ・くすみ",
+    text:"日焼けやニキビのあと、シミや茶色い跡が残りやすい？",
+    opts:[
+      {t:"残りやすい", spot:2},
+      {t:"ときどき残る", spot:1},
+      {t:"残りにくい", spot:0},
+    ]},
+  { cat:"シミ・くすみ",
+    text:"顔全体のくすみや色ムラが気になる？",
+    opts:[
+      {t:"よく気になる", spot:2},
+      {t:"少し気になる", spot:1},
+      {t:"気にならない", spot:0},
+    ]},
 ];
 
-const MAX = { oil:11, dry:9, sens:6 };
-const TH  = { oil:5,  dry:4, sens:3 };   // この値以上で「高い」と判定
+/* レーダーチャートの5項目（上から時計回り）。外側ほどケアしたいサイン */
+const AXES = [
+  {key:"oil",  label:"皮脂"},
+  {key:"dry",  label:"乾燥"},
+  {key:"sens", label:"敏感"},
+  {key:"firm", label:"ハリ不足"},
+  {key:"spot", label:"シミ"},
+];
+const MAX = Object.fromEntries(AXES.map(a=>[a.key,
+  QUESTIONS.reduce((sum,q)=>sum+Math.max(...q.opts.map(o=>o[a.key]||0)),0)]));
+const TH  = { oil:5, dry:4, sens:3, firm:2, spot:2 };   // この値以上で「高い」と判定
+
+/* ハリ・シミが高めのときに出すケア */
+const CONCERNS = {
+  firm:{ title:"ハリ・小じわが気になるサイン",
+    good:["レチノール（誘導体を含む）","ナイアシンアミド","ペプチド","ビタミンC誘導体"],
+    note:"レチノールは少量から始めて、日中は日焼け止めを忘れずに。",
+    sensNote:"敏感肌寄りの今は、刺激の少ないナイアシンアミドから試すのがおすすめ。" },
+  spot:{ title:"シミ・くすみが気になるサイン",
+    good:["トラネキサム酸","ビタミンC誘導体","ナイアシンアミド","4MSK"],
+    note:"「美白有効成分」入りの医薬部外品を選ぶと確実。いちばんの対策は毎日の日焼け止めです。" },
+};
 
 /* ============================================================
    タイプ別データ（むっちの成分知識を反映）
@@ -443,6 +535,12 @@ function toggleTimer(){
     document.getElementById("timerSub").textContent="一時停止中";
   }
 }
+function resetTimer(){
+  clearInterval(timerId); running=false;
+  timeLeft=timerMin*60; renderTimer();
+  const t=document.getElementById("timerToggle"); t.textContent="タイマー開始"; t.classList.remove("on");
+  document.getElementById("timerSub").textContent="時間をはかりたい方はどうぞ（任意）";
+}
 
 /* ===== クイズ ===== */
 function startQuiz(){ if(timerId)clearInterval(timerId); running=false; idx=0; go('quiz'); renderQ(); }
@@ -474,9 +572,26 @@ function prevQ(){ if(idx>0){idx--;renderQ();} }
 
 /* ===== 判定 ===== */
 function score(){
-  let s={oil:0,dry:0,sens:0};
-  answers.forEach((a,i)=>{ if(a!=null){const o=QUESTIONS[i].opts[a];s.oil+=o.oil;s.dry+=o.dry;s.sens+=o.sens;} });
+  const s=Object.fromEntries(AXES.map(a=>[a.key,0]));
+  answers.forEach((a,i)=>{ if(a!=null){const o=QUESTIONS[i].opts[a]; AXES.forEach(x=>s[x.key]+=o[x.key]||0);} });
   return s;
+}
+
+/* ===== レーダーチャート ===== */
+function radarSvg(pcts){
+  const N=AXES.length, cx=170, cy=158, R=110;
+  const pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/N; return [cx+r*Math.cos(a), cy+r*Math.sin(a)];};
+  const pts=arr=>arr.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
+  const grid=[.25,.5,.75,1].map(f=>`<polygon points="${pts(AXES.map((_,i)=>pt(i,R*f)))}" class="rg"/>`).join("");
+  const spokes=AXES.map((_,i)=>{const [x,y]=pt(i,R);return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" class="rg"/>`;}).join("");
+  const data=AXES.map((_,i)=>pt(i,R*Math.max(pcts[i],3)/100));
+  const dots=data.map(([x,y],i)=>`<g class="rpt" tabindex="0" aria-label="${AXES[i].label} ${pcts[i]}"><title>${AXES[i].label}：${pcts[i]}</title><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="12" class="rhit"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" class="rdot"/></g>`).join("");
+  const labels=AXES.map((a,i)=>{
+    const [x,y]=pt(i,R+24);
+    const anchor=Math.abs(x-cx)<5?"middle":(x>cx?"start":"end");
+    return `<text x="${x.toFixed(1)}" y="${(y-8).toFixed(1)}" text-anchor="${anchor}" class="rlab"><tspan x="${x.toFixed(1)}">${a.label}</tspan><tspan x="${x.toFixed(1)}" dy="17" class="rval">${pcts[i]}</tspan></text>`;
+  }).join("");
+  return `<svg viewBox="0 0 340 292" class="radar" role="img" aria-label="肌傾向のレーダーチャート：${AXES.map((a,i)=>a.label+" "+pcts[i]).join("、")}">${grid}${spokes}<polygon points="${pts(data)}" class="rshape"/>${dots}${labels}</svg>`;
 }
 function decide(s){
   const oilHigh=s.oil>=TH.oil, dryHigh=s.dry>=TH.dry;
@@ -554,9 +669,22 @@ function renderProducts(t){
 
 function showResult(){
   const s=score(), r=decide(s), t=TYPES[r.key];
-  const oilP=Math.round(s.oil/MAX.oil*100);
-  const dryP=Math.round(s.dry/MAX.dry*100);
-  const sensP=Math.round(s.sens/MAX.sens*100);
+  const stext=shareText(t, r);
+  const pcts=AXES.map(a=>Math.round(s[a.key]/MAX[a.key]*100));
+
+  const concernKeys=["firm","spot"].filter(k=>s[k]>=TH[k]);
+  const concernPanel = concernKeys.length ? `
+    <div class="panel">
+      <h3><span class="dot"></span>気になるサイン別のケア</h3>
+      ${concernKeys.map(k=>{
+        const c=CONCERNS[k];
+        const good = (r.sens && k==="firm") ? c.good.filter(x=>!x.startsWith("レチノール")) : c.good;
+        const note = (r.sens && c.sensNote) ? c.sensNote : c.note;
+        return `<div class="concern"><p class="concern-title">${c.title}</p>
+          <div class="tags good">${good.map(x=>`<span>${x}</span>`).join("")}</div>
+          <p class="concern-note">${note}</p></div>`;
+      }).join("")}
+    </div>` : "";
 
   const sensTag = r.sens ? `<div class="sens-tag">＋ 敏感肌寄り</div>` : "";
   const sensPanel = r.sens ? `
@@ -577,11 +705,10 @@ function showResult(){
     </div>
     <p class="result-desc">${t.desc}</p>
 
-    <div class="bars">
-      <div class="barline"><span class="lab">皮脂</span><span class="track"><i class="fill-oil" style="width:${oilP}%"></i></span><span class="val">${oilP}</span></div>
-      <div class="barline"><span class="lab">乾燥</span><span class="track"><i class="fill-dry" style="width:${dryP}%"></i></span><span class="val">${dryP}</span></div>
-      <div class="barline"><span class="lab">敏感さ</span><span class="track"><i class="fill-sens" style="width:${sensP}%"></i></span><span class="val">${sensP}</span></div>
-    </div>
+    <figure class="radar-wrap">
+      ${radarSvg(pcts)}
+      <figcaption>外側ほど、ケアしたいサイン（0〜100）</figcaption>
+    </figure>
 
     <div class="panel">
       <h3><span class="dot"></span>ケアのワンポイント</h3>
@@ -595,25 +722,65 @@ function showResult(){
       <h3><span class="dot"></span>気をつけたいこと</h3>
       <div class="tags bad">${t.bad.map(x=>`<span>${x}</span>`).join("")}</div>
     </div>
+    ${concernPanel}
     ${sensPanel}
     ${renderProducts(t)}
+
+    <div class="panel voice">
+      <img src="assets/skin-check-supervisor.jpg" alt="監修者 むっち">
+      <div>
+        <p>肌タイプは、季節や年齢、生活リズムでも変わります。合うアイテム選びに迷ったら、成分表の「上から3つ」を見るところから始めてみてください。</p>
+        <div class="who">監修：むっち（日本化粧品検定1級・美容サロンオーナー）</div>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h3>もっと詳しく知りたい方へ</h3>
+      <p>監修者むっちのサロン「VIRIR」（宮崎・延岡）では、<br>肌の状態を見ながらスキンケアのご相談を受け付けています。</p>
+      <div class="btn-row">
+        <a class="btn line" href="https://lin.ee/S0mV749" target="_blank" rel="noopener">公式LINEで相談する</a>
+        <a class="btn ghost" href="https://www.instagram.com/atm_salon.virir_/" target="_blank" rel="noopener">Instagramを見る</a>
+      </div>
+    </div>
+
+    <div class="share">
+      <div class="lab">診断結果をシェア</div>
+      <div class="share-btns">
+        <a class="chip" href="https://line.me/R/share?text=${encodeURIComponent(stext+"\n"+SHARE_URL)}" target="_blank" rel="noopener">LINEで送る</a>
+        <a class="chip" href="https://x.com/intent/post?text=${encodeURIComponent(stext)}&url=${encodeURIComponent(SHARE_URL)}" target="_blank" rel="noopener">Xでポスト</a>
+        <button class="chip" onclick="copyLink(this)">リンクをコピー</button>
+        ${navigator.share ? `<button class="chip" id="nativeShareBtn">その他</button>` : ""}
+      </div>
+    </div>
 
     <p class="disclaimer">※ この診断はセルフチェックの目安です。肌悩みが続く・強い症状がある場合は皮膚科専門医にご相談ください。<br>結果は季節や体調で変わります。気になったら定期的に再チェックを。</p>
     <div class="btn-row">
       <button class="btn ghost" onclick="restart()">もう一度診断する</button>
     </div>
   `;
+  const ns=document.getElementById("nativeShareBtn");
+  if(ns) ns.onclick=()=>nativeShare(stext);
   go('result');
-  // バーをアニメーションさせるため一旦0→値
-  requestAnimationFrame(()=>{ /* CSS transition で自動 */ });
 }
 
 function restart(){
   idx=0; answers.fill(null);
-  timeLeft=timerMin*60; renderTimer(); running=false;
-  const t=document.getElementById("timerToggle"); t.textContent="タイマー開始"; t.classList.remove("on");
-  document.getElementById("timerSub").textContent="時間をはかりたい方はどうぞ（任意）";
+  resetTimer();
   go('intro');
+}
+
+/* ===== シェア ===== */
+const SHARE_URL = "https://atmrwneed-pro.github.io/skin-type-check/";
+function shareText(t, r){
+  return `私の肌タイプは「${t.name}${r.sens?"＋敏感肌寄り":""}」でした。あなたも2分でチェック👇`;
+}
+function copyLink(btn){
+  const done = ()=>{ btn.textContent="コピーしました"; setTimeout(()=>btn.textContent="リンクをコピー",1800); };
+  if(navigator.clipboard){ navigator.clipboard.writeText(SHARE_URL).then(done).catch(()=>prompt("このリンクをコピーしてください",SHARE_URL)); }
+  else { prompt("このリンクをコピーしてください",SHARE_URL); }
+}
+function nativeShare(text){
+  navigator.share({title:"肌タイプ診断｜むっちの成分ノート", text, url:SHARE_URL}).catch(()=>{});
 }
 
 renderTimer();
