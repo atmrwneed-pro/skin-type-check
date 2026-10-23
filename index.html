@@ -225,7 +225,7 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
           <button class="chip" data-min="10" onclick="setTimer(10,this)">10分</button>
           <button class="chip on" data-min="15" onclick="setTimer(15,this)">15分</button>
           <button class="chip" data-min="20" onclick="setTimer(20,this)">20分</button>
-          <button class="chip" id="timerToggle" onclick="toggleTimer()">スタート</button>
+          <button class="chip" id="timerToggle" onclick="toggleTimer()">タイマー開始</button>
         </div>
       </div>
       <div class="btn-row">
@@ -430,12 +430,13 @@ function setTimer(min,el){
 function toggleTimer(){
   const t=document.getElementById("timerToggle");
   if(!running){
+    if(timeLeft<=0){ timeLeft=timerMin*60; renderTimer(); }
     running=true; t.textContent="ストップ"; t.classList.add("on");
-    document.getElementById("timerSub").textContent="計測中… 終わったら下のボタンで答えてね";
+    document.getElementById("timerSub").textContent="計測中… 終わったら下の「診断スタート」へ";
     timerId=setInterval(()=>{
       timeLeft--; renderTimer();
       if(timeLeft<=0){clearInterval(timerId);running=false;t.textContent="完了！";
-        document.getElementById("timerSub").textContent="お疲れさま。肌の状態を観察して答えてください。";}
+        document.getElementById("timerSub").textContent="お疲れさま。肌の状態を確かめたら「診断スタート」へ。";}
     },1000);
   }else{
     clearInterval(timerId); running=false; t.textContent="再開"; t.classList.remove("on");
@@ -610,7 +611,7 @@ function showResult(){
 function restart(){
   idx=0; answers.fill(null);
   timeLeft=timerMin*60; renderTimer(); running=false;
-  const t=document.getElementById("timerToggle"); t.textContent="スタート"; t.classList.remove("on");
+  const t=document.getElementById("timerToggle"); t.textContent="タイマー開始"; t.classList.remove("on");
   document.getElementById("timerSub").textContent="時間をはかりたい方はどうぞ（任意）";
   go('intro');
 }
