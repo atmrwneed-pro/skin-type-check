@@ -373,11 +373,12 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
 <div id="storyModal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Instagramストーリー用の画像" onclick="if(event.target===this)closeStory()">
   <div class="modal-box">
     <img id="storyImg" alt="肌タイプ診断の結果画像">
-    <p class="modal-note">スマホは画像を長押しでも保存できます。ストーリーズの「リンク」スタンプに診断のURLを貼ると、見た人もすぐ試せます。</p>
+    <p class="modal-note" id="storyNote"></p>
     <div class="btn-row">
-      <button type="button" id="storyShare" class="btn hidden" onclick="shareStory()">共有する（Instagramを選択）</button>
-      <a id="storyDl" class="btn ghost" download="skin-type-result.png">画像を保存</a>
+      <button type="button" id="storyShare" class="btn hidden" onclick="shareStory()">写真に保存・共有する</button>
+      <a id="storyDl" class="btn ghost hidden" download="skin-type-result.png">画像をダウンロード</a>
     </div>
+    <p class="modal-note">ストーリーズの「リンク」スタンプに診断のURLを貼ると、見た人もすぐ試せます。</p>
     <div class="btn-row modal-sub">
       <button type="button" class="chip" onclick="copyLink(this)">診断のURLをコピー</button>
       <button type="button" class="chip" onclick="closeStory()">閉じる</button>
@@ -1024,6 +1025,16 @@ function showResult(){
     </figure>
     <div id="histPanel" class="panel hist hidden"></div>
 
+    <div class="share">
+      <div class="lab">診断結果を保存・シェア</div>
+      <div class="share-btns">
+        <a class="chip" href="https://line.me/R/share?text=${encodeURIComponent(stext+"\n"+SHARE_URL)}" target="_blank" rel="noopener">LINEで送る</a>
+        <button type="button" class="chip" onclick="makeStory(this)">Instagramストーリー用の画像</button>
+        <button class="chip" onclick="copyLink(this)">リンクをコピー</button>
+        ${navigator.share ? `<button class="chip" id="nativeShareBtn">その他</button>` : ""}
+      </div>
+    </div>
+
     <div class="panel">
       <h3><span class="dot"></span>ケアのワンポイント</h3>
       <p>${t.care}</p>
@@ -1055,16 +1066,6 @@ function showResult(){
       <div class="btn-row">
         <a class="btn line" href="https://lin.ee/S0mV749" target="_blank" rel="noopener">公式LINEで相談する</a>
         <a class="btn ghost" href="https://www.instagram.com/atm_salon.virir_/" target="_blank" rel="noopener">Instagramを見る</a>
-      </div>
-    </div>
-
-    <div class="share">
-      <div class="lab">診断結果をシェア</div>
-      <div class="share-btns">
-        <a class="chip" href="https://line.me/R/share?text=${encodeURIComponent(stext+"\n"+SHARE_URL)}" target="_blank" rel="noopener">LINEで送る</a>
-        <button type="button" class="chip" onclick="makeStory(this)">Instagramストーリー用の画像</button>
-        <button class="chip" onclick="copyLink(this)">リンクをコピー</button>
-        ${navigator.share ? `<button class="chip" id="nativeShareBtn">その他</button>` : ""}
       </div>
     </div>
 
@@ -1154,8 +1155,14 @@ function openStory(blob){
   storyFile=new File([blob],"skin-type-result.png",{type:"image/png"});
   document.getElementById("storyImg").src=storyUrl;
   document.getElementById("storyDl").href=storyUrl;
+  // 共有メニューが使える端末（スマホ）は、共有メニューの「画像を保存」で写真アプリに保存できる。
+  // ダウンロード用リンクはiPhoneだと「ファイル」にしか入らないので、使えない端末だけに出す
   const canFile=!!(navigator.canShare && navigator.canShare({files:[storyFile]}));
   document.getElementById("storyShare").classList.toggle("hidden", !canFile);
+  document.getElementById("storyDl").classList.toggle("hidden", canFile);
+  document.getElementById("storyNote").textContent = canFile
+    ? "共有メニューの「画像を保存」で写真アプリに、「Instagram」からストーリーズに投稿できます。画像を長押しして保存してもOK。"
+    : "スマホの場合は、画像を長押しして写真に保存してください。";
   document.getElementById("storyModal").classList.remove("hidden");
   document.body.style.overflow="hidden";
 }
