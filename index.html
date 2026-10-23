@@ -176,7 +176,6 @@ h1.title{
 .pstep{font-family:"Jost","Noto Sans JP",sans-serif;font-size:.66rem;letter-spacing:.12em;color:var(--accent-d);}
 .pswap{font-size:.66rem;color:#fff;background:var(--sens);padding:2px 9px;border-radius:99px;}
 .ptier-range{font-family:"Noto Serif JP",serif;font-size:1rem;font-weight:600;color:var(--ink);}
-.ptier-label{font-size:.68rem;letter-spacing:.12em;color:var(--accent-d);background:var(--accent-s);padding:3px 11px;border-radius:99px;}
 .pcards{display:flex;flex-direction:column;gap:10px;}
 .pcard{display:flex;align-items:center;gap:14px;padding:11px;border:1px solid var(--line);border-radius:13px;background:var(--cream);transition:.18s;}
 .pcard:hover{border-color:var(--accent);background:#fff;}
@@ -216,6 +215,64 @@ a.btn{text-decoration:none;}
 .share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
 a.chip{text-decoration:none;}
 
+/* ===== 再開の案内・前回の診断 ===== */
+.notice{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:.84rem;background:var(--accent-s);border-radius:12px;padding:10px 14px;margin-bottom:22px;text-align:center;}
+.last-result{text-align:center;font-size:.8rem;color:var(--sub);margin-top:14px;}
+
+/* ===== 洗顔後テストの2つの道 ===== */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 4px;}
+.path{text-align:left;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;font-family:inherit;color:var(--ink);transition:.18s;line-height:1.6;}
+.path b{display:block;font-weight:500;font-size:.98rem;margin-bottom:4px;}
+.path span{font-size:.8rem;color:var(--sub);}
+.path:hover,.path.on{border-color:var(--accent);background:var(--accent-s);}
+.path.on{box-shadow:0 0 0 1px var(--accent) inset;}
+@media(max-width:560px){ .paths{grid-template-columns:1fr;} }
+
+/* ===== 商品の価格帯タブ ===== */
+.ptabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--cream);padding:5px;border-radius:12px;margin-bottom:14px;}
+.ptab{font-family:inherit;font-size:.86rem;font-weight:500;color:var(--sub);background:transparent;border:0;border-radius:9px;padding:8px 4px;cursor:pointer;line-height:1.3;}
+.ptab small{display:block;font-size:.64rem;font-weight:400;margin-top:2px;white-space:nowrap;letter-spacing:0;}
+.ptab.on{background:#fff;color:var(--accent-d);box-shadow:0 1px 4px rgba(156,114,105,.18);}
+
+/* ===== 成分タグ（タップで説明） ===== */
+.tap-hint{font-size:.76rem;color:var(--sub);margin:-6px 0 8px;}
+.tags .tagbtn{font-family:inherit;font-size:.82rem;padding:6px 13px;border-radius:99px;cursor:pointer;line-height:1.5;transition:.15s;}
+.tags.good .tagbtn{background:#f3f7f1;border:1px solid #dde9d8;color:#5b7150;}
+.tags.good .tagbtn:hover,.tags.good .tagbtn.on{border-color:#5b7150;background:#e8f1e3;}
+.ing-desc{font-size:.84rem;line-height:1.75;background:var(--cream);border-radius:10px;padding:10px 13px;margin-top:10px;}
+.ing-desc b{font-weight:500;}
+
+/* ===== 記録（前回との比較・グラフ） ===== */
+.hist-area{margin-top:12px;}
+.compare{font-size:.84rem;margin-bottom:10px;}
+.compare b{font-family:"Jost",sans-serif;font-weight:500;}
+.btn.small{padding:9px 20px;font-size:.84rem;}
+.hist-note{font-size:.76rem;color:var(--sub);}
+.panel.hist{text-align:left;}
+.hist-axes{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;}
+.hist-axes .chip{padding:6px 13px;font-size:.78rem;}
+.hchart{width:100%;max-width:420px;height:auto;display:block;margin:6px auto 4px;overflow:visible;}
+.hchart .hg{stroke:var(--line);stroke-width:1;}
+.hchart .hax{font-family:"Jost","Noto Sans JP",sans-serif;font-size:11px;fill:var(--sub);}
+.hchart .hline{fill:none;stroke:var(--accent-d);stroke-width:2;stroke-linejoin:round;}
+.hchart .hdot{fill:var(--accent-d);stroke:#fff;stroke-width:2;}
+.hchart .hval{font-family:"Jost",sans-serif;font-size:13px;font-weight:500;fill:var(--ink);}
+.hchart .rhit{fill:transparent;}
+.hchart .rpt{outline:none;}
+.hist-list{list-style:none;margin:10px 0 12px;display:flex;flex-direction:column;gap:6px;}
+.hist-list li{font-size:.8rem;padding:8px 11px;background:var(--cream);border-radius:9px;}
+.hist-list li b{font-family:"Jost",sans-serif;font-weight:500;}
+.hist-list li span{display:block;color:var(--sub);font-size:.74rem;margin-top:2px;}
+.linkbtn{font-family:inherit;font-size:inherit;color:var(--accent-d);background:none;border:0;text-decoration:underline;cursor:pointer;margin-left:6px;padding:0;}
+
+/* ===== ストーリー画像の表示 ===== */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(44,40,37,.55);display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;}
+.modal-box{background:#fff;border-radius:18px;padding:20px;max-width:420px;width:100%;text-align:center;max-height:calc(100vh - 40px);overflow-y:auto;}
+.modal-box img{width:auto;max-width:100%;max-height:56vh;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);}
+.modal-note{font-size:.78rem;color:var(--sub);margin-top:12px;line-height:1.7;}
+.modal-box .btn-row{margin-top:14px;}
+.modal-sub{gap:8px !important;}
+
 .disclaimer{font-size:.76rem;color:var(--sub);text-align:center;margin-top:28px;line-height:1.7;}
 
 footer{text-align:center;padding:24px;color:var(--sub);font-size:.74rem;border-top:1px solid var(--line);background:#fff;}
@@ -231,6 +288,7 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
   .q-text{font-size:1.12rem;}
   .result-type h2{font-size:1.8rem;}
   .timer-display{font-size:2.8rem;}
+  br.pc{display:none;}
 }
 </style>
 </head>
@@ -250,15 +308,17 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
 
     <!-- ===== イントロ ===== -->
     <section id="screen-intro" class="fade">
+      <div id="resumeBanner" class="notice hidden"></div>
       <div class="eyebrow">Skin Type Diagnosis</div>
       <h1 class="title serif">あなたの肌タイプ、<br>正しく知っていますか？</h1>
-      <p class="lead">「洗顔後テスト」と質問（全14問）で、肌タイプと<br>皮脂・乾燥・敏感・ハリ・シミの5つの傾向を判定します。<br>所要時間 約2分。</p>
+      <p class="lead">「洗顔後テスト」と質問（全14問）で、肌タイプと<br class="pc">皮脂・乾燥・敏感・ハリ・シミの5つの傾向を判定します。<br>所要時間 約2分。</p>
       <div class="supervisor">
         <img src="assets/skin-check-supervisor.jpg" alt="監修者 むっち" width="44" height="44">
         <div class="who"><b>監修：むっち</b>日本化粧品検定1級／集英社MAQUIA公式ブロガー</div>
       </div>
+      <p id="lastResult" class="last-result hidden"></p>
       <div class="steps">
-        <div class="step"><div class="no">1</div><div class="txt"><b>洗顔後テスト（実測）</b><span>洗顔して何もつけず10〜20分。アプリのタイマーも使えます。</span></div></div>
+        <div class="step"><div class="no">1</div><div class="txt"><b>洗顔後テスト</b><span>洗顔して10〜20分おいた肌で判定。今できない人は、いつもの状態を思い出して答えてもOK。</span></div></div>
         <div class="step"><div class="no">2</div><div class="txt"><b>質問に答える</b><span>皮脂・乾燥・敏感さ・ハリ・シミについて、当てはまるものを選ぶだけ。</span></div></div>
         <div class="step"><div class="no">3</div><div class="txt"><b>結果＋成分アドバイス</b><span>4タイプ＋敏感肌の判定と5項目のチャート。合う成分と価格帯別のおすすめまで。</span></div></div>
       </div>
@@ -269,10 +329,15 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
     <section id="screen-test" class="hidden">
       <div class="eyebrow">Step 1 / 2</div>
       <h1 class="title serif">洗顔後テスト</h1>
-      <p class="lead">いちばん正確に出るのは、<b>洗顔して何もつけずに10〜20分おいた状態</b>。<br>すでにその状態の方は、そのまま「診断スタート」へ。</p>
+      <p class="lead">洗顔して何もつけずに<b>10〜20分おいた肌</b>が、いちばん正確な判定材料になります。</p>
+      <div class="paths">
+        <button class="path" id="pathMeasure" onclick="choosePath('measure')"><b>今から測る</b><span>洗顔してからタイマーをスタート。待っている間は、ほかのアプリを見ていても大丈夫です。</span></button>
+        <button class="path" id="pathRecall" onclick="choosePath('recall')"><b>今は測れない</b><span>いつもの洗顔後の肌を思い出して答えます。</span></button>
+      </div>
+      <div id="measureBox" class="hidden">
       <div class="timer-box">
         <div class="timer-display" id="timerDisp">15:00</div>
-        <div class="timer-sub" id="timerSub">時間をはかりたい方はどうぞ（任意）</div>
+        <div class="timer-sub" id="timerSub">洗顔が終わったらスタート</div>
         <div class="timer-btns">
           <button class="chip" data-min="10" onclick="setTimer(10,this)">10分</button>
           <button class="chip on" data-min="15" onclick="setTimer(15,this)">15分</button>
@@ -281,10 +346,9 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
           <button class="chip" onclick="resetTimer()">リセット</button>
         </div>
       </div>
-      <div class="btn-row">
-        <button class="btn ghost" onclick="go('intro')">もどる</button>
-        <button class="btn" onclick="startQuiz()">診断スタート</button>
+      <div class="btn-row"><button class="btn" onclick="startQuiz()">診断スタート</button></div>
       </div>
+      <div class="btn-row"><button class="btn ghost" onclick="go('intro')">もどる</button></div>
     </section>
 
     <!-- ===== 質問 ===== -->
@@ -306,6 +370,21 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
   </div>
 </main>
 
+<div id="storyModal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Instagramストーリー用の画像" onclick="if(event.target===this)closeStory()">
+  <div class="modal-box">
+    <img id="storyImg" alt="肌タイプ診断の結果画像">
+    <p class="modal-note">スマホは画像を長押しでも保存できます。ストーリーズの「リンク」スタンプに診断のURLを貼ると、見た人もすぐ試せます。</p>
+    <div class="btn-row">
+      <button type="button" id="storyShare" class="btn hidden" onclick="shareStory()">共有する（Instagramを選択）</button>
+      <a id="storyDl" class="btn ghost" download="skin-type-result.png">画像を保存</a>
+    </div>
+    <div class="btn-row modal-sub">
+      <button type="button" class="chip" onclick="copyLink(this)">診断のURLをコピー</button>
+      <button type="button" class="chip" onclick="closeStory()">閉じる</button>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="lat">むっちの成分ノート</div>
   <div style="margin-top:6px;">© 2026 mucchi — 日本化粧品検定1級</div>
@@ -318,7 +397,8 @@ footer .lat{font-size:.9rem;letter-spacing:.1em;}
    ============================================================ */
 const QUESTIONS = [
   { cat:"洗顔後テスト",
-    text:"洗顔して何もつけずに10〜20分。いまの肌に一番近いのは？",
+    text:"洗顔して何もつけずに10〜20分たった、今の肌に一番近いのは？",
+    textRecall:"いつもの洗顔後、何もつけずに10〜20分たったときの肌に一番近いのは？",
     opts:[
       {t:"全体がつっぱって、粉っぽい・カサつく", oil:0, dry:3, sens:0},
       {t:"ほお・口元はつっぱる。Tゾーンはふつう", oil:0, dry:2, sens:0},
@@ -346,15 +426,15 @@ const QUESTIONS = [
     text:"ニキビ・吹き出物は？",
     opts:[
       {t:"ほとんどできない", oil:0,dry:0,sens:0},
-      {t:"生理前など時々", oil:1,dry:0,sens:0},
+      {t:"体調やホルモンバランスで時々", oil:1,dry:0,sens:0},
       {t:"くり返しできやすい", oil:2,dry:0,sens:0},
     ]},
   { cat:"水分",
-    text:"洗顔後、化粧水をつけるまでの肌は？",
+    text:"夕方になると、ほおや口元が乾いてつっぱる？",
     opts:[
-      {t:"すぐにつっぱる", oil:0,dry:2,sens:0},
-      {t:"少しつっぱる", oil:0,dry:1,sens:0},
-      {t:"つっぱらない", oil:0,dry:0,sens:0},
+      {t:"よくある", oil:0,dry:2,sens:0},
+      {t:"たまにある", oil:0,dry:1,sens:0},
+      {t:"ほとんどない", oil:0,dry:0,sens:0},
     ]},
   { cat:"水分",
     text:"粉ふき・カサつき・ゴワつきは？",
@@ -378,7 +458,7 @@ const QUESTIONS = [
       {t:"ない", oil:0,dry:0,sens:0},
     ]},
   { cat:"敏感さ",
-    text:"季節の変わり目・生理前・体調で肌が荒れる？",
+    text:"季節の変わり目や、睡眠不足・ストレスなど体調の変化で肌が荒れる？",
     opts:[
       {t:"大きく荒れる", oil:0,dry:0,sens:2},
       {t:"少し荒れる", oil:0,dry:0,sens:1},
@@ -451,7 +531,7 @@ const CONCERNS = {
 const TYPES = {
   oily:   { name:"脂性肌", en:"Oily",
     desc:"皮脂分泌が活発。テカり・毛穴・ニキビが気になりやすいタイプ。",
-    care:"皮脂を取りすぎるとかえって過剰分泌に。さっぱり仕上げでも“水分の保湿”は省かないのがコツ。ジェルや乳液でうるおいを補って。",
+    care:"洗いすぎは乾燥や肌荒れのもと。皮脂は“落としすぎず、ためこまず”。保湿はグリセリンや油分が少なめのジェル・乳液で軽く整えて。",
     good:["ナイアシンアミド","ビタミンC誘導体","BHA（サリチル酸）","アゼライン酸","亜鉛(ジンク)"],
     bad:["重いオイル・クリーム","過剰な洗浄(脱脂しすぎ)","ベタつくワセリン厚塗り"],
     routine:[
@@ -481,8 +561,8 @@ const TYPES = {
         {name:"ONE BY KOSÉ セラムヴェール ディープリペア", yen:5500, note:"うるおいを逃がしにくくする導入美容液", icon:"serum", src:"友利新"},
         {name:"エスティ ローダー アクア チャージ 薬用 ミルキー クリーム", yen:9900, note:"水分保持能の改善＋肌荒れ防止", icon:"cream", src:"友利新"} ],
     ] },
-  combo:  { name:"混合肌（インナードライ）", en:"Combination",
-    desc:"Tゾーンはテカるのに、ほおは乾く。水分不足が皮脂を招いているタイプ。",
+  combo:  { name:"混合肌", en:"Combination",
+    desc:"Tゾーンは皮脂が多く、ほおや口元は乾きやすい。部位によって肌の状態が違うタイプ。",
     care:"全顔を一律でケアしないのがポイント。まず水分をしっかり。Tゾーンは軽く、ほお・口元は重ねづけで部位ごとに調整を。",
     good:["ナイアシンアミド","セラミド","ヒアルロン酸","ビタミンC誘導体(部分使い)"],
     bad:["全顔一律の強いケア","油分の塗りすぎ(Tゾーン)","保湿不足のさっぱりケアだけ"],
@@ -493,7 +573,7 @@ const TYPES = {
       [ {name:"ミノン アミノモイスト エイジングケア ローション", yen:2420, note:"アミノ酸でしっとり・敏感肌向け", icon:"lotion", src:"友利新"},
         {name:"キュレル 潤浸保湿 美容液", yen:2750, note:"セラミド機能成分で乾くほおに", icon:"serum", src:"かずのすけ（キュレルを推奨）"},
         {name:"キュレル 皮脂トラブルケア 保湿ジェル", yen:2090, note:"ベタつかずTゾーンにも", icon:"cream", src:"かずのすけ（キュレルを推奨）"} ],
-      [ {name:"リサージ スキンメインテナイザー DX 1", yen:11000, note:"オイリー〜インナードライ肌向けの化粧液", icon:"lotion", src:"友利新"},
+      [ {name:"リサージ スキンメインテナイザー DX 1", yen:11000, note:"オイリー〜オイリードライ肌向けの化粧液", icon:"lotion", src:"友利新"},
         {name:"ラ ロッシュ ポゼ メラB3 セラム", yen:9350, note:"ナイアシンアミド配合・敏感肌にも", icon:"serum", src:"友利新"},
         {name:"ヒフミド エッセンスクリーム", yen:6600, note:"高濃度ヒト型セラミドを乾くほおに", icon:"cream", sensNG:true, src:"かずのすけ"} ],
     ] },
@@ -542,6 +622,48 @@ const SENS = {
   bad:["香料・着色料","エタノール","メントール","高濃度の酸・レチノール","スクラブ等の物理刺激"],
   note:"新しいアイテムは、腕の内側などでパッチテストをしてから顔へ。" };
 
+/* 成分名をタップしたときの一言説明（何に効くか → 選び方のひとこと） */
+const GLOSSARY = {
+  "ナイアシンアミド":"ビタミンB3の一種。皮脂・毛穴の目立ち・ハリ・くすみまで幅広く対応。高濃度だとピリつく人もいるので様子を見ながら。",
+  "ビタミンC誘導体":"肌の中でビタミンCとして働くよう安定させた形。皮脂・毛穴の目立ち・くすみに。ピュアなビタミンCより刺激が出にくい。",
+  "ビタミンC":"くすみ・毛穴の目立ち・ハリに。抗酸化の代表成分。ピュアなビタミンC（アスコルビン酸）は効果的なぶん刺激も出やすい。",
+  "BHA（サリチル酸）":"角質をやわらかくして、毛穴の詰まりやニキビを防ぐ。毎日使うと刺激になることも。",
+  "アゼライン酸":"穀物などに含まれる酸。皮脂・ニキビ・赤みのケアに。皮脂が気になる部分から使うのがおすすめ。",
+  "亜鉛(ジンク)":"皮脂をおさえて肌を整えるサポート役。ナイアシンアミドと組み合わせた美容液が多い。",
+  "セラミド":"角層のすき間を埋めて水分を逃がさない、バリアの主役。「ヒト型セラミド（セラミドNPなど）」の表記が目安。",
+  "ヒアルロン酸":"水分を抱え込んで保湿する。肌表面をしっとりさせる定番成分。",
+  "グリセリン":"定番の保湿成分。水分を引き寄せてしっとりさせる。皮脂が多い人はベタつきの原因になることも。",
+  "スクワラン":"肌の皮脂にも含まれる軽い油。水分の蒸発を防ぐ“フタ”になる。",
+  "シアバター":"こっくりした植物性の油分。乾燥がひどいところのフタに。",
+  "アミノ酸":"肌のうるおいを保つ天然保湿因子（NMF）の主成分。角層の中の水分をキープする。",
+  "日中のUVケア":"成分ではないけれど、シミやハリ低下のいちばんの原因の紫外線を防ぐ、最強の予防ケア。",
+  "CICA(ツボクサ)":"ツボクサエキス。肌荒れを落ち着かせて整える成分。",
+  "パンテノール":"ビタミンB5の一種。肌荒れを防ぎ、うるおいを保つ。",
+  "アラントイン":"肌荒れを防ぐ有効成分。刺激を受けた肌を落ち着かせる。",
+  "グリチルリチン酸2K":"甘草由来の、肌荒れを防ぐ有効成分。ニキビや赤みのケアの定番。",
+  "レチノール（誘導体を含む）":"ビタミンAの一種。ハリ・小じわのケアに。ピリつきや赤み（A反応）が出ることがあるので、少量から。",
+  "ペプチド":"アミノ酸がつながった成分。ハリをサポートし、刺激が少ない。",
+  "トラネキサム酸":"美白の有効成分。メラニンの生成を抑えて、シミ・そばかすを防ぐ。肌荒れ防止にも。",
+  "4MSK":"資生堂の美白有効成分。メラニンの生成を抑えて、シミ・そばかすを防ぐ。",
+};
+function ingDesc(name){ return GLOSSARY[name] || GLOSSARY[name.replace(/[（(].*?[)）]/g,"")] || ""; }
+function ingTags(list, cls){
+  const tags=list.map(x=>{
+    const d=ingDesc(x);
+    return d ? `<button type="button" class="tagbtn" aria-expanded="false" data-desc="${d}" onclick="showIng(this)">${x}</button>` : `<span>${x}</span>`;
+  }).join("");
+  return `<div class="ing"><div class="tags ${cls}">${tags}</div><p class="ing-desc hidden" aria-live="polite"></p></div>`;
+}
+function showIng(btn){
+  const box=btn.closest(".ing"), desc=box.querySelector(".ing-desc");
+  const wasOpen=btn.getAttribute("aria-expanded")==="true";
+  box.querySelectorAll(".tagbtn").forEach(b=>{ b.setAttribute("aria-expanded","false"); b.classList.remove("on"); });
+  if(wasOpen){ desc.classList.add("hidden"); return; }
+  btn.setAttribute("aria-expanded","true"); btn.classList.add("on");
+  desc.innerHTML=`<b>${btn.textContent}</b>　${btn.dataset.desc}`;
+  desc.classList.remove("hidden");
+}
+
 /* ============================================================
    状態 & 画面遷移
    ============================================================ */
@@ -557,48 +679,97 @@ function go(name){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* ===== タイマー ===== */
-let timerMin=15, timeLeft=15*60, timerId=null, running=false;
+/* ===== 端末内の保存（外部には送らない。使えない環境でも動くように） ===== */
+function store(key, val){ try{ val==null ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+function load(key){ try{ return JSON.parse(localStorage.getItem(key)); }catch(e){ return null; } }
+
+/* ===== 洗顔後テスト：今から測る / 思い出して答える ===== */
+let testMode = "measure";
+function choosePath(mode){
+  testMode = mode;
+  document.getElementById("pathMeasure").classList.toggle("on", mode==="measure");
+  document.getElementById("pathRecall").classList.toggle("on", mode==="recall");
+  if(mode==="recall"){ startQuiz(); return; }
+  document.getElementById("measureBox").classList.remove("hidden");
+}
+
+/* ===== タイマー（終了予定時刻から残りを計算＝別アプリから戻ってもずれない） ===== */
+const TIMER_KEY = "skinCheckTimer_v1";
+let timerMin=15, timeLeft=15*60, timerId=null, running=false, endAt=0;
 function fmt(s){const m=Math.floor(s/60),x=s%60;return m+":"+String(x).padStart(2,"0");}
 function renderTimer(){document.getElementById("timerDisp").textContent=fmt(timeLeft);}
-function setTimer(min,el){
+function markMinChip(){
+  document.querySelectorAll('.timer-btns .chip[data-min]').forEach(c=>c.classList.toggle('on', Number(c.dataset.min)===timerMin));
+}
+function setTimer(min){
   if(running) return;
-  timerMin=min; timeLeft=min*60; renderTimer();
-  document.querySelectorAll('.timer-btns .chip[data-min]').forEach(c=>c.classList.remove('on'));
-  el.classList.add('on');
+  timerMin=min; timeLeft=min*60; renderTimer(); markMinChip();
+}
+function tick(){
+  timeLeft=Math.max(0, Math.ceil((endAt-Date.now())/1000)); renderTimer();
+  if(timeLeft<=0) finishTimer();
+}
+function runTimer(){
+  running=true; store(TIMER_KEY, {endAt, min:timerMin});
+  const t=document.getElementById("timerToggle"); t.textContent="ストップ"; t.classList.add("on");
+  document.getElementById("timerSub").textContent="計測中… ほかのアプリを見ていてもOK。終わったら「診断スタート」へ";
+  clearInterval(timerId); timerId=setInterval(tick,1000); tick();
 }
 function toggleTimer(){
-  const t=document.getElementById("timerToggle");
   if(!running){
-    if(timeLeft<=0){ timeLeft=timerMin*60; renderTimer(); }
-    running=true; t.textContent="ストップ"; t.classList.add("on");
-    document.getElementById("timerSub").textContent="計測中… 終わったら下の「診断スタート」へ";
-    timerId=setInterval(()=>{
-      timeLeft--; renderTimer();
-      if(timeLeft<=0){clearInterval(timerId);running=false;t.textContent="完了！";
-        document.getElementById("timerSub").textContent="お疲れさま。肌の状態を確かめたら「診断スタート」へ。";}
-    },1000);
+    if(timeLeft<=0) timeLeft=timerMin*60;
+    endAt=Date.now()+timeLeft*1000; runTimer();
   }else{
-    clearInterval(timerId); running=false; t.textContent="再開"; t.classList.remove("on");
+    tick(); clearInterval(timerId); running=false; store(TIMER_KEY, null);
+    const t=document.getElementById("timerToggle"); t.textContent="再開"; t.classList.remove("on");
     document.getElementById("timerSub").textContent="一時停止中";
   }
 }
+function finishTimer(){
+  clearInterval(timerId); running=false; timeLeft=0; renderTimer(); store(TIMER_KEY, null);
+  const t=document.getElementById("timerToggle"); t.textContent="完了！"; t.classList.remove("on");
+  document.getElementById("timerSub").textContent="お疲れさま。肌の状態を確かめたら「診断スタート」へ。";
+  if(navigator.vibrate && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate([200,100,200]);
+}
 function resetTimer(){
-  clearInterval(timerId); running=false;
+  clearInterval(timerId); running=false; store(TIMER_KEY, null);
   timeLeft=timerMin*60; renderTimer();
   const t=document.getElementById("timerToggle"); t.textContent="タイマー開始"; t.classList.remove("on");
-  document.getElementById("timerSub").textContent="時間をはかりたい方はどうぞ（任意）";
+  document.getElementById("timerSub").textContent="洗顔が終わったらスタート";
+}
+document.addEventListener("visibilitychange", ()=>{ if(running && !document.hidden) tick(); });
+
+/* ページを開き直したとき、測定中のタイマーがあれば続きから */
+function checkSavedTimer(){
+  const saved=load(TIMER_KEY);
+  if(!saved || !saved.endAt) return;
+  if(Date.now() > saved.endAt + 60*60*1000){ store(TIMER_KEY, null); return; }
+  timerMin=saved.min||15; endAt=saved.endAt;
+  const left=Math.max(0, Math.ceil((endAt-Date.now())/1000));
+  const banner=document.getElementById("resumeBanner");
+  banner.innerHTML=`洗顔後テストのタイマーが${left>0?"動いています（残り "+fmt(left)+"）":"終わっています"}<button class="chip" onclick="resumeTimer()">続きから</button>`;
+  banner.classList.remove("hidden");
+}
+function resumeTimer(){
+  document.getElementById("resumeBanner").classList.add("hidden");
+  go('test'); choosePath('measure'); markMinChip();
+  if(endAt>Date.now()){ timeLeft=Math.ceil((endAt-Date.now())/1000); runTimer(); }
+  else finishTimer();
 }
 
 /* ===== クイズ ===== */
-function startQuiz(){ if(timerId)clearInterval(timerId); running=false; idx=0; go('quiz'); renderQ(); }
+function startQuiz(){
+  clearInterval(timerId); running=false; store(TIMER_KEY, null);
+  document.getElementById("resumeBanner").classList.add("hidden");
+  idx=0; go('quiz'); renderQ();
+}
 
 function renderQ(){
   const q=QUESTIONS[idx];
   document.getElementById("progBar").style.width=((idx)/QUESTIONS.length*100)+"%";
   document.getElementById("qCount").textContent="QUESTION "+(idx+1)+" / "+QUESTIONS.length;
   document.getElementById("qCat").textContent=q.cat;
-  document.getElementById("qText").textContent=q.text;
+  document.getElementById("qText").textContent=(testMode==="recall" && q.textRecall) ? q.textRecall : q.text;
   const wrap=document.getElementById("qOpts"); wrap.innerHTML="";
   q.opts.forEach((o,i)=>{
     const b=document.createElement("button");
@@ -703,11 +874,13 @@ function productCard(p, si){
   return `<div class="pcard">${media}<span class="pinfo"><span class="pstep">STEP${si+1}｜${STEPS[si]}</span>${name}${note}<span class="pmeta"><span class="pprice">約${yen(p.yen)}</span>${swap}</span></span></div>`;
 }
 function renderProducts(t, sens){
-  const rows = TIERS.map((tier,ti)=>{
+  const tabs = TIERS.map((tier,ti)=>
+    `<button type="button" class="ptab${ti===0?" on":""}" role="tab" aria-selected="${ti===0}" onclick="selTier(${ti})">${tier.label}<small>${tier.range}</small></button>`).join("");
+  const panels = TIERS.map((tier,ti)=>{
     const items = t.routine[ti].map((p,si)=> (sens && p.sensNG) ? {...SENS_ALT[ti][si], swapped:true} : p);
     const total = items.reduce((sum,p)=>sum+p.yen, 0);
-    return `<div class="ptier">
-      <div class="ptier-head"><span class="ptier-range">${tier.range}で揃える</span><span class="ptier-label">${tier.label}</span><span class="ptier-total">3品で約${yen(total)}</span></div>
+    return `<div class="ptier${ti===0?"":" hidden"}" role="tabpanel">
+      <div class="ptier-head"><span class="ptier-range">${tier.range}で揃える</span><span class="ptier-total">3品で約${yen(total)}</span></div>
       <div class="pcards">${items.map(productCard).join("")}</div>
     </div>`;
   }).join("");
@@ -718,9 +891,73 @@ function renderProducts(t, sens){
     <h3><span class="dot"></span>価格帯別のおすすめ</h3>
     <p class="pnote">化粧水→美容液→保湿の3ステップを、予算に合わせて選べます。</p>
     ${sensNote}
-    ${rows}
-    <p class="psource">※ 価格は目安です。</p>
+    <div class="ptabs" role="tablist" aria-label="価格帯">${tabs}</div>
+    ${panels}
+    <p class="psource">※ 価格は目安です（2026年10月時点）。</p>
   </div>`;
+}
+function selTier(ti){
+  document.querySelectorAll(".ptab").forEach((b,i)=>{ b.classList.toggle("on", i===ti); b.setAttribute("aria-selected", i===ti); });
+  document.querySelectorAll(".ptier").forEach((p,i)=>p.classList.toggle("hidden", i!==ti));
+}
+
+/* ===== 診断の記録（この端末のブラウザにだけ保存） ===== */
+const HIST_KEY = "skinCheckHistory_v1";
+let hist = [], histAxis = 0;
+function loadHist(){ const h=load(HIST_KEY); return Array.isArray(h) ? h : []; }
+function md(iso){ const d=new Date(iso); return (d.getMonth()+1)+"/"+d.getDate(); }
+function compareLine(prev, vals){
+  if(!prev) return "";
+  const diffs=AXES.map((a,i)=>({label:a.label, d:vals[i]-prev.v[i]})).filter(x=>x.d!==0);
+  const head=`前回（${md(prev.d)}・${prev.name}）`;
+  if(!diffs.length) return `${head}と同じ点数でした`;
+  return `${head}との差：` + diffs.map(x=>`${x.label} <b class="${x.d>0?"up":"down"}">${x.d>0?"+":"−"}${Math.abs(x.d)}</b>`).join("　");
+}
+function histChartSvg(axis){
+  const rows=hist.slice(-10), n=rows.length;
+  const W=340, H=190, L=34, Rt=26, T=24, B=150;
+  const x=i=> n===1 ? (L+W-Rt)/2 : L + i*(W-L-Rt)/(n-1);
+  const y=v=> B - v*(B-T)/10;
+  const grid=[0,5,10].map(v=>`<line x1="${L}" y1="${y(v)}" x2="${W-Rt+8}" y2="${y(v)}" class="hg"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" class="hax">${v}</text>`).join("");
+  const pts=rows.map((r,i)=>[x(i), y(r.v[axis])]);
+  const line=`<polyline points="${pts.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")}" class="hline"/>`;
+  const dots=pts.map((p,i)=>`<g class="rpt" tabindex="0" aria-label="${md(rows[i].d)} ${rows[i].v[axis]}点"><title>${md(rows[i].d)}：${rows[i].v[axis]} / 10</title><circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="12" class="rhit"/><circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" class="hdot"/></g>`).join("");
+  const last=pts[n-1];
+  const lastLab=`<text x="${last[0].toFixed(1)}" y="${(last[1]-12).toFixed(1)}" text-anchor="middle" class="hval">${rows[n-1].v[axis]}</text>`;
+  const showX = n<=5 ? rows.map((_,i)=>i) : [0, n-1];
+  const xl=showX.map(i=>`<text x="${x(i).toFixed(1)}" y="${B+22}" text-anchor="middle" class="hax">${md(rows[i].d)}</text>`).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" class="hchart" role="img" aria-label="${AXES[axis].label}の推移：${rows.map(r=>md(r.d)+" "+r.v[axis]).join("、")}">${grid}${line}${dots}${lastLab}${xl}</svg>`;
+}
+function renderHistPanel(){
+  const chips=AXES.map((a,i)=>`<button type="button" class="chip${i===histAxis?" on":""}" onclick="histAxis=${i};renderHistPanel()">${a.label}</button>`).join("");
+  const list=hist.slice().reverse().map(r=>`<li><b>${md(r.d)}</b>　${r.name}${r.sens?"＋敏感肌寄り":""}<span>${AXES.map((a,i)=>a.label+" "+r.v[i]).join(" / ")}</span></li>`).join("");
+  document.getElementById("histPanel").innerHTML=`
+    <h3><span class="dot"></span>これまでの記録</h3>
+    <div class="hist-axes">${chips}</div>
+    ${histChartSvg(histAxis)}
+    <ul class="hist-list">${list}</ul>
+    <p class="hist-note">記録はこの端末のブラウザにだけ保存され、外部には送信されません。<button type="button" class="linkbtn" onclick="clearHist()">記録を消す</button></p>`;
+}
+function toggleHist(btn){
+  const p=document.getElementById("histPanel");
+  const open=p.classList.toggle("hidden")===false;
+  btn.setAttribute("aria-expanded", open);
+  btn.textContent = open ? "記録のグラフを閉じる" : `これまでの記録をグラフで見る（${hist.length}回分）`;
+  if(open) renderHistPanel();
+}
+function clearHist(){
+  if(!confirm("これまでの診断の記録を消しますか？")) return;
+  store(HIST_KEY, null); hist=[];
+  document.getElementById("histArea").innerHTML=`<p class="hist-note">記録を消しました。</p>`;
+  document.getElementById("histPanel").classList.add("hidden");
+  showLastResult();
+}
+function showLastResult(){
+  const h=loadHist(), el=document.getElementById("lastResult");
+  if(!h.length){ el.classList.add("hidden"); return; }
+  const r=h[h.length-1];
+  el.textContent=`前回の診断：${r.name}${r.sens?"＋敏感肌寄り":""}（${md(r.d)}）`;
+  el.classList.remove("hidden");
 }
 
 function showResult(){
@@ -734,6 +971,18 @@ function showResult(){
     ? `<span class="cp-dot"></span>あなたのケアポイント：<b>${careIdx.map(i=>AXES[i].label).join("・")}</b>`
     : `大きなへこみはありません。今のケアをキープしましょう`;
 
+  // 記録：前回と比べてから、今回の結果を追加する
+  hist = loadHist();
+  const prev = hist[hist.length-1];
+  hist.push({d:new Date().toISOString(), key:r.key, name:t.name, sens:r.sens, v:vals});
+  hist = hist.slice(-30); store(HIST_KEY, hist);
+  histAxis = careIdx.length ? careIdx[0] : 0;
+  const histArea = hist.length>=2
+    ? `<p class="compare">${compareLine(prev, vals)}</p>
+       <button type="button" class="btn ghost small" aria-expanded="false" onclick="toggleHist(this)">これまでの記録をグラフで見る（${hist.length}回分）</button>`
+    : `<p class="hist-note">次回からは、前回との比較やグラフが見られます（記録はこの端末にだけ保存されます）。</p>`;
+  storyData = {t, r, vals, careIdx};
+
   const concernKeys=["firm","spot"].filter(k=>s[k]>=TH[k]);
   const concernPanel = concernKeys.length ? `
     <div class="panel">
@@ -743,7 +992,7 @@ function showResult(){
         const good = (r.sens && k==="firm") ? c.good.filter(x=>!x.startsWith("レチノール")) : c.good;
         const note = (r.sens && c.sensNote) ? c.sensNote : c.note;
         return `<div class="concern"><p class="concern-title">${c.title}</p>
-          <div class="tags good">${good.map(x=>`<span>${x}</span>`).join("")}</div>
+          ${ingTags(good, "good")}
           <p class="concern-note">${note}</p></div>`;
       }).join("")}
     </div>` : "";
@@ -753,7 +1002,7 @@ function showResult(){
     <div class="panel sens-panel">
       <h3><span class="dot"></span>敏感肌へのケア</h3>
       <p>${SENS.desc}</p>
-      <div class="tags good" style="margin-top:14px;">${SENS.good.map(x=>`<span>${x}</span>`).join("")}</div>
+      <div style="margin-top:14px;">${ingTags(SENS.good, "good")}</div>
       <p style="margin-top:14px;font-size:.85rem;color:var(--sub);">避けたい：${SENS.bad.join(" / ")}</p>
       <p style="margin-top:10px;font-size:.85rem;">💡 ${SENS.note}</p>
     </div>` : "";
@@ -771,7 +1020,9 @@ function showResult(){
       ${radarSvg(vals, careIdx)}
       <figcaption>外側ほど良好（10点満点）。へこんでいるところがケアポイント</figcaption>
       <p class="carepoint">${careLine}</p>
+      <div id="histArea" class="hist-area">${histArea}</div>
     </figure>
+    <div id="histPanel" class="panel hist hidden"></div>
 
     <div class="panel">
       <h3><span class="dot"></span>ケアのワンポイント</h3>
@@ -779,7 +1030,8 @@ function showResult(){
     </div>
     <div class="panel">
       <h3><span class="dot"></span>相性のいい成分</h3>
-      <div class="tags good">${t.good.map(x=>`<span>${x}</span>`).join("")}</div>
+      <p class="tap-hint">成分名をタップすると、何に効くかが出ます</p>
+      ${ingTags(t.good, "good")}
     </div>
     <div class="panel">
       <h3><span class="dot"></span>気をつけたいこと</h3>
@@ -810,7 +1062,7 @@ function showResult(){
       <div class="lab">診断結果をシェア</div>
       <div class="share-btns">
         <a class="chip" href="https://line.me/R/share?text=${encodeURIComponent(stext+"\n"+SHARE_URL)}" target="_blank" rel="noopener">LINEで送る</a>
-        <a class="chip" href="https://x.com/intent/post?text=${encodeURIComponent(stext)}&url=${encodeURIComponent(SHARE_URL)}" target="_blank" rel="noopener">Xでポスト</a>
+        <button type="button" class="chip" onclick="makeStory(this)">Instagramストーリー用の画像</button>
         <button class="chip" onclick="copyLink(this)">リンクをコピー</button>
         ${navigator.share ? `<button class="chip" id="nativeShareBtn">その他</button>` : ""}
       </div>
@@ -828,9 +1080,87 @@ function showResult(){
 
 function restart(){
   idx=0; answers.fill(null);
-  resetTimer();
+  resetTimer(); showLastResult();
+  document.getElementById("measureBox").classList.add("hidden");
+  document.querySelectorAll(".path").forEach(p=>p.classList.remove("on"));
   go('intro');
 }
+
+/* ===== Instagramストーリー用の結果画像（1080×1920、端末内で作成） ===== */
+let storyData=null, storyUrl=null, storyFile=null;
+function roundRect(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+async function makeStory(btn){
+  if(!storyData) return;
+  const label=btn.textContent; btn.textContent="画像を作成中…"; btn.disabled=true;
+  try{
+    const {t, r, vals, careIdx} = storyData;
+    const careText = careIdx.length ? "ケアポイント：" + careIdx.map(i=>AXES[i].label).join("・") : "大きなへこみなし。今のケアをキープ";
+    const allText = t.name + "＋敏感肌寄り外側ほど良好（10点満点）" + AXES.map(a=>a.label).join("") + careText + "あなたも2分で肌タイプ診断むっちの成分ノート｜監修日本化粧品検定1級";
+    if(document.fonts && document.fonts.load){
+      await Promise.all([
+        document.fonts.load('600 118px "Noto Serif JP"', allText),
+        document.fonts.load('500 40px "Noto Sans JP"', allText),
+        document.fonts.load('400 28px "Noto Sans JP"', allText),
+        document.fonts.load('500 46px "Jost"', "MY SKIN TYPE0123456789"),
+      ]).catch(()=>{});
+    }
+    const W=1080, H=1920, c=document.createElement("canvas"); c.width=W; c.height=H;
+    const g=c.getContext("2d");
+    g.fillStyle="#faf6f2"; g.fillRect(0,0,W,H);
+    const glow=(x,y,rad,col)=>{ const gr=g.createRadialGradient(x,y,0,x,y,rad); gr.addColorStop(0,col); gr.addColorStop(1,"rgba(250,246,242,0)"); g.fillStyle=gr; g.fillRect(0,0,W,H); };
+    glow(900,260,520,"rgba(236,214,206,.9)"); glow(160,1700,560,"rgba(240,228,220,.9)");
+    g.strokeStyle="#b39a6c"; g.lineWidth=3; g.strokeRect(54,54,W-108,H-108);
+    g.strokeStyle="rgba(179,154,108,.45)"; g.lineWidth=1.5; g.strokeRect(70,70,W-140,H-140);
+    const center=(txt,y,font,col)=>{ g.font=font; g.fillStyle=col; g.textAlign="center"; g.textBaseline="alphabetic"; g.fillText(txt,W/2,y); };
+    if("letterSpacing" in g) g.letterSpacing="10px";
+    center("MY SKIN TYPE", 330, '500 36px "Jost", sans-serif', "#9c7269");
+    if("letterSpacing" in g) g.letterSpacing="0px";
+    center(t.name, 470, '600 118px "Noto Serif JP", serif', "#2c2825");
+    if(r.sens){
+      g.font='500 38px "Noto Sans JP", sans-serif';
+      const lab="＋ 敏感肌寄り", w=g.measureText(lab).width+64, x=(W-w)/2, py=525, ph=66;
+      g.fillStyle="#c97f8f"; roundRect(g,x,py,w,ph,33); g.fill();
+      g.fillStyle="#fff"; g.textAlign="center"; g.textBaseline="middle"; g.fillText(lab,W/2,py+ph/2+2);
+    }
+    const cx=540, cy=960, R=260, N=AXES.length;
+    const pt=(i,rad)=>{const a=-Math.PI/2+i*2*Math.PI/N; return [cx+rad*Math.cos(a), cy+rad*Math.sin(a)];};
+    g.strokeStyle="#e6dbd2"; g.lineWidth=2;
+    [.25,.5,.75,1].forEach(f=>{ g.beginPath(); AXES.forEach((_,i)=>{const [x,y]=pt(i,R*f); i?g.lineTo(x,y):g.moveTo(x,y);}); g.closePath(); g.stroke(); });
+    AXES.forEach((_,i)=>{ const [x,y]=pt(i,R); g.beginPath(); g.moveTo(cx,cy); g.lineTo(x,y); g.stroke(); });
+    const dp=AXES.map((_,i)=>pt(i,R*Math.max(vals[i],0.3)/10));
+    g.beginPath(); dp.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y)); g.closePath();
+    g.fillStyle="rgba(183,140,130,.26)"; g.fill(); g.strokeStyle="#9c7269"; g.lineWidth=6; g.lineJoin="round"; g.stroke();
+    dp.forEach(([x,y],i)=>{ const care=careIdx.includes(i); g.beginPath(); g.arc(x,y,care?18:12,0,Math.PI*2); g.fillStyle=care?"#d0743c":"#9c7269"; g.fill(); g.lineWidth=5; g.strokeStyle="#fff"; g.stroke(); });
+    AXES.forEach((a,i)=>{
+      const [x,y]=pt(i,R+64);
+      g.textAlign = Math.abs(x-cx)<5 ? "center" : (x>cx ? "left" : "right");
+      g.textBaseline="alphabetic"; g.fillStyle="#2c2825";
+      g.font='500 40px "Noto Sans JP", sans-serif'; g.fillText(a.label, x, y-8);
+      g.font='500 46px "Jost", sans-serif'; g.fillText(String(vals[i]), x, y+44);
+    });
+    center("外側ほど良好（10点満点）", 1360, '400 28px "Noto Sans JP", sans-serif', "#877d75");
+    center(careText, 1428, '500 42px "Noto Sans JP", sans-serif', "#2c2825");
+    g.strokeStyle="#b39a6c"; g.lineWidth=2; g.beginPath(); g.moveTo(W/2-60,1472); g.lineTo(W/2+60,1472); g.stroke();
+    center("あなたも2分で肌タイプ診断", 1528, '600 44px "Noto Serif JP", serif', "#2c2825");
+    center("むっちの成分ノート ｜ 監修 日本化粧品検定1級 むっち", 1576, '400 28px "Noto Sans JP", sans-serif', "#9c7269");
+    const png = await new Promise(res=>c.toBlob(res,"image/png"));
+    openStory(png);
+  }catch(e){ alert("画像を作れませんでした。もう一度お試しください。"); }
+  finally{ btn.textContent=label; btn.disabled=false; }
+}
+function openStory(blob){
+  if(storyUrl) URL.revokeObjectURL(storyUrl);
+  storyUrl=URL.createObjectURL(blob);
+  storyFile=new File([blob],"skin-type-result.png",{type:"image/png"});
+  document.getElementById("storyImg").src=storyUrl;
+  document.getElementById("storyDl").href=storyUrl;
+  const canFile=!!(navigator.canShare && navigator.canShare({files:[storyFile]}));
+  document.getElementById("storyShare").classList.toggle("hidden", !canFile);
+  document.getElementById("storyModal").classList.remove("hidden");
+  document.body.style.overflow="hidden";
+}
+function closeStory(){ document.getElementById("storyModal").classList.add("hidden"); document.body.style.overflow=""; }
+function shareStory(){ navigator.share({files:[storyFile], title:"肌タイプ診断の結果"}).catch(()=>{}); }
 
 /* ===== シェア ===== */
 const SHARE_URL = "https://atmrwneed-pro.github.io/skin-type-check/";
@@ -838,7 +1168,8 @@ function shareText(t, r){
   return `私の肌タイプは「${t.name}${r.sens?"＋敏感肌寄り":""}」でした。あなたも2分でチェック👇`;
 }
 function copyLink(btn){
-  const done = ()=>{ btn.textContent="コピーしました"; setTimeout(()=>btn.textContent="リンクをコピー",1800); };
+  const orig = btn.textContent;
+  const done = ()=>{ btn.textContent="コピーしました"; setTimeout(()=>btn.textContent=orig,1800); };
   if(navigator.clipboard){ navigator.clipboard.writeText(SHARE_URL).then(done).catch(()=>prompt("このリンクをコピーしてください",SHARE_URL)); }
   else { prompt("このリンクをコピーしてください",SHARE_URL); }
 }
@@ -847,6 +1178,8 @@ function nativeShare(text){
 }
 
 renderTimer();
+showLastResult();
+checkSavedTimer();
 </script>
 </body>
 </html>
