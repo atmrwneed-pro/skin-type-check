@@ -185,11 +185,13 @@ h1.title{
 .pphoto.illust svg{width:54px;height:54px;}
 .pinfo{display:flex;flex-direction:column;gap:3px;min-width:0;}
 .pname{font-size:.94rem;font-weight:500;color:var(--ink);line-height:1.45;}
-a.pname{transition:color .2s;}
-a.pname:hover{color:var(--accent-d);text-decoration:underline;}
 .pnote2{font-size:.76rem;color:var(--sub);line-height:1.4;}
 .pmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:3px;}
 .pprice{font-family:"Jost",sans-serif;font-size:.86rem;color:var(--accent-d);letter-spacing:.04em;}
+.pbuy{align-self:flex-start;margin-top:8px;font-size:.78rem;font-weight:500;color:#fff;background:var(--accent);border-radius:99px;padding:6px 14px;text-decoration:none;transition:.2s;white-space:nowrap;}
+.pbuy:hover{background:var(--accent-d);}
+.pr-badge{font-family:"Jost","Noto Sans JP",sans-serif;font-size:.62rem;font-weight:500;letter-spacing:.08em;color:var(--sub);border:1px solid var(--line);border-radius:4px;padding:1px 6px;margin-left:4px;}
+.pr-note{font-size:.76rem;color:var(--sub);margin:-6px 0 10px;}
 .psource{font-size:.74rem;color:var(--sub);margin-top:16px;line-height:1.6;}
 @media(max-width:560px){ .pphoto{width:64px;height:64px;} .pphoto.illust svg{width:38px;height:38px;} .pname{font-size:.88rem;} }
 
@@ -867,12 +869,14 @@ function productCard(p, si){
   const media = p.img
     ? `<span class="pphoto"><img src="${p.img}" alt="${p.name}" loading="lazy"></span>`
     : `<span class="pphoto illust">${iconSvg(p.icon)}</span>`;
-  const name = p.url
-    ? `<a class="pname" href="${p.url}" target="_blank" rel="noopener">${p.name}</a>`
-    : `<span class="pname">${p.name}</span>`;
+  const name = `<span class="pname">${p.name}</span>`;
   const note = p.note ? `<span class="pnote2">${p.note}</span>` : "";
   const swap = p.swapped ? `<span class="pswap">敏感肌向けに変更</span>` : "";
-  return `<div class="pcard">${media}<span class="pinfo"><span class="pstep">STEP${si+1}｜${STEPS[si]}</span>${name}${note}<span class="pmeta"><span class="pprice">約${yen(p.yen)}</span>${swap}</span></span></div>`;
+  // アフィリエイトのリンクは rel="sponsored"（広告リンクであることを検索エンジンに伝える）
+  const buy = p.url
+    ? `<a class="pbuy" href="${p.url}" target="_blank" rel="sponsored noopener">${p.shop ? p.shop+"で見る" : "商品を見る"} ›</a>`
+    : "";
+  return `<div class="pcard">${media}<span class="pinfo"><span class="pstep">STEP${si+1}｜${STEPS[si]}</span>${name}${note}<span class="pmeta"><span class="pprice">約${yen(p.yen)}</span>${swap}</span>${buy}</span></div>`;
 }
 function renderProducts(t, sens){
   const tabs = TIERS.map((tier,ti)=>
@@ -888,13 +892,16 @@ function renderProducts(t, sens){
   const sensNote = sens
     ? `<p class="psens">敏感肌寄りのため、刺激になりやすい成分（香料・エタノール・高濃度のビタミンCなど）を含むアイテムは、低刺激のものに入れ替えています。</p>`
     : "";
+  // リンクを登録したら、見出しの横に「PR」、すぐ下に説明を出す（ステマ規制：広告だと一目で分かる位置に）
+  const ad = hasAdLinks();
   return `<div class="panel products-panel">
-    <h3><span class="dot"></span>価格帯別のおすすめ</h3>
+    <h3><span class="dot"></span>価格帯別のおすすめ${ad ? `<span class="pr-badge">PR</span>` : ""}</h3>
+    ${ad ? `<p class="pr-note">このコーナーの商品リンクには、アフィリエイト広告を含みます。</p>` : ""}
     <p class="pnote">化粧水→美容液→保湿の3ステップを、予算に合わせて選べます。</p>
     ${sensNote}
     <div class="ptabs" role="tablist" aria-label="価格帯">${tabs}</div>
     ${panels}
-    <p class="psource">※ 価格は目安です（2026年10月時点）。${hasAdLinks() ? "<br>※ 商品リンクにはアフィリエイト広告（PR）を含みます。" : ""}</p>
+    <p class="psource">※ 価格は目安です（2026年10月時点）。</p>
   </div>`;
 }
 /* 商品にリンク（url）を1つでも登録したら、ステマ規制に沿って「広告（PR）」を表示する */
