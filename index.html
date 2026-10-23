@@ -146,7 +146,12 @@ h1.title{
 .radar .rpt:hover .rdot,.radar .rpt:focus .rdot{r:6.5;}
 .radar .rlab{font-family:"Noto Sans JP",sans-serif;font-size:14px;fill:var(--ink);}
 .radar .rval{font-family:"Jost",sans-serif;font-size:14px;font-weight:500;fill:var(--ink);}
+.radar .rdot.care{fill:#d0743c;}   /* ケアポイント（白背景3.36:1）。色だけに頼らず点を大きく＋下に文字で明記 */
+.radar .rpt:hover .rdot.care,.radar .rpt:focus .rdot.care{r:8;}
 .radar-wrap figcaption{font-size:.76rem;color:var(--sub);margin-top:2px;}
+.carepoint{font-size:.88rem;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;}
+.carepoint b{font-weight:500;}
+.cp-dot{width:11px;height:11px;border-radius:50%;background:#d0743c;border:2px solid #fff;box-shadow:0 0 0 1px #d0743c;}
 .concern + .concern{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
 .concern-title{font-weight:500;font-size:.9rem;margin-bottom:4px;}
 .concern-note{font-size:.84rem;color:var(--sub);margin-top:10px;}
@@ -416,13 +421,14 @@ const QUESTIONS = [
     ]},
 ];
 
-/* レーダーチャートの5項目（上から時計回り）。外側ほどケアしたいサイン */
+/* レーダーチャートの5項目（上から時計回り）。
+   スコアは「ケアが必要な度合い」だが、表示は強みの言葉に言い換えて外側ほど良好（10点満点） */
 const AXES = [
-  {key:"oil",  label:"皮脂"},
-  {key:"dry",  label:"乾燥"},
-  {key:"sens", label:"敏感"},
-  {key:"firm", label:"ハリ不足"},
-  {key:"spot", label:"シミ"},
+  {key:"oil",  label:"テカりにくさ"},
+  {key:"dry",  label:"うるおい"},
+  {key:"sens", label:"肌の強さ"},
+  {key:"firm", label:"ハリ"},
+  {key:"spot", label:"透明感"},
 ];
 const MAX = Object.fromEntries(AXES.map(a=>[a.key,
   QUESTIONS.reduce((sum,q)=>sum+Math.max(...q.opts.map(o=>o[a.key]||0)),0)]));
@@ -620,20 +626,23 @@ function score(){
 }
 
 /* ===== レーダーチャート ===== */
-function radarSvg(pcts){
-  const N=AXES.length, cx=170, cy=158, R=110;
+function radarSvg(vals, careIdx){
+  const N=AXES.length, cx=183, cy=158, R=110;
   const pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/N; return [cx+r*Math.cos(a), cy+r*Math.sin(a)];};
   const pts=arr=>arr.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
   const grid=[.25,.5,.75,1].map(f=>`<polygon points="${pts(AXES.map((_,i)=>pt(i,R*f)))}" class="rg"/>`).join("");
   const spokes=AXES.map((_,i)=>{const [x,y]=pt(i,R);return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" class="rg"/>`;}).join("");
-  const data=AXES.map((_,i)=>pt(i,R*Math.max(pcts[i],3)/100));
-  const dots=data.map(([x,y],i)=>`<g class="rpt" tabindex="0" aria-label="${AXES[i].label} ${pcts[i]}"><title>${AXES[i].label}：${pcts[i]}</title><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="12" class="rhit"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" class="rdot"/></g>`).join("");
+  const data=AXES.map((_,i)=>pt(i,R*Math.max(vals[i],0.3)/10));
+  const dots=data.map(([x,y],i)=>{
+    const care=careIdx.includes(i);
+    return `<g class="rpt" tabindex="0" aria-label="${AXES[i].label} ${vals[i]}点${care?"（ケアポイント）":""}"><title>${AXES[i].label}：${vals[i]} / 10</title><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="12" class="rhit"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${care?6.5:4.5}" class="rdot${care?" care":""}"/></g>`;
+  }).join("");
   const labels=AXES.map((a,i)=>{
     const [x,y]=pt(i,R+24);
     const anchor=Math.abs(x-cx)<5?"middle":(x>cx?"start":"end");
-    return `<text x="${x.toFixed(1)}" y="${(y-8).toFixed(1)}" text-anchor="${anchor}" class="rlab"><tspan x="${x.toFixed(1)}">${a.label}</tspan><tspan x="${x.toFixed(1)}" dy="17" class="rval">${pcts[i]}</tspan></text>`;
+    return `<text x="${x.toFixed(1)}" y="${(y-8).toFixed(1)}" text-anchor="${anchor}" class="rlab"><tspan x="${x.toFixed(1)}">${a.label}</tspan><tspan x="${x.toFixed(1)}" dy="17" class="rval">${vals[i]}</tspan></text>`;
   }).join("");
-  return `<svg viewBox="0 0 340 292" class="radar" role="img" aria-label="肌傾向のレーダーチャート：${AXES.map((a,i)=>a.label+" "+pcts[i]).join("、")}">${grid}${spokes}<polygon points="${pts(data)}" class="rshape"/>${dots}${labels}</svg>`;
+  return `<svg viewBox="0 0 370 292" class="radar" role="img" aria-label="肌の状態のレーダーチャート（10点満点、外側ほど良好）：${AXES.map((a,i)=>a.label+" "+vals[i]).join("、")}">${grid}${spokes}<polygon points="${pts(data)}" class="rshape"/>${dots}${labels}</svg>`;
 }
 function decide(s){
   const oilHigh=s.oil>=TH.oil, dryHigh=s.dry>=TH.dry;
@@ -717,7 +726,13 @@ function renderProducts(t, sens){
 function showResult(){
   const s=score(), r=decide(s), t=TYPES[r.key];
   const stext=shareText(t, r);
-  const pcts=AXES.map(a=>Math.round(s[a.key]/MAX[a.key]*100));
+  const good=AXES.map(a=>1 - s[a.key]/MAX[a.key]);            // 1に近いほど良好
+  const vals=good.map(g=>Math.round(g*10));                    // 10点満点で表示
+  const careIdx=good.map((g,i)=>[g,i]).filter(([g])=>g<=0.5)  // 5点以下を低い順に最大2つ
+    .sort((a,b)=>a[0]-b[0]).slice(0,2).map(([,i])=>i);
+  const careLine = careIdx.length
+    ? `<span class="cp-dot"></span>あなたのケアポイント：<b>${careIdx.map(i=>AXES[i].label).join("・")}</b>`
+    : `大きなへこみはありません。今のケアをキープしましょう`;
 
   const concernKeys=["firm","spot"].filter(k=>s[k]>=TH[k]);
   const concernPanel = concernKeys.length ? `
@@ -753,8 +768,9 @@ function showResult(){
     <p class="result-desc">${t.desc}</p>
 
     <figure class="radar-wrap">
-      ${radarSvg(pcts)}
-      <figcaption>外側ほど、ケアしたいサイン（0〜100）</figcaption>
+      ${radarSvg(vals, careIdx)}
+      <figcaption>外側ほど良好（10点満点）。へこんでいるところがケアポイント</figcaption>
+      <p class="carepoint">${careLine}</p>
     </figure>
 
     <div class="panel">
