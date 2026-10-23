@@ -163,9 +163,13 @@ h1.title{
 .tags.bad span{background:#fbf2f1;border-color:#eddad7;color:#9c5b53;}
 /* ===== 価格帯別おすすめ商品 ===== */
 .products-panel .pnote{font-size:.83rem;color:var(--sub);margin:-2px 0 16px;}
-.ptier{margin-bottom:16px;}
-.ptier:last-child{margin-bottom:0;}
-.ptier-head{display:flex;align-items:baseline;gap:10px;margin-bottom:9px;}
+.products-panel .psens{font-size:.8rem;line-height:1.7;background:#fdf6f7;border:1px solid #f0d9de;border-radius:10px;padding:10px 13px;margin:0 0 16px;}
+.ptier{margin-bottom:22px;}
+.ptier:last-of-type{margin-bottom:0;}
+.ptier-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin-bottom:9px;}
+.ptier-total{margin-left:auto;font-size:.76rem;color:var(--sub);}
+.pstep{font-family:"Jost","Noto Sans JP",sans-serif;font-size:.66rem;letter-spacing:.12em;color:var(--accent-d);}
+.pswap{font-size:.66rem;color:#fff;background:var(--sens);padding:2px 9px;border-radius:99px;}
 .ptier-range{font-family:"Noto Serif JP",serif;font-size:1rem;font-weight:600;color:var(--ink);}
 .ptier-label{font-size:.68rem;letter-spacing:.12em;color:var(--accent-d);background:var(--accent-s);padding:3px 11px;border-radius:99px;}
 .pcards{display:flex;flex-direction:column;gap:10px;}
@@ -444,48 +448,86 @@ const TYPES = {
     care:"皮脂を取りすぎるとかえって過剰分泌に。さっぱり仕上げでも“水分の保湿”は省かないのがコツ。ジェルや乳液でうるおいを補って。",
     good:["ナイアシンアミド","ビタミンC誘導体","BHA（サリチル酸）","アゼライン酸","亜鉛(ジンク)"],
     bad:["重いオイル・クリーム","過剰な洗浄(脱脂しすぎ)","ベタつくワセリン厚塗り"],
-    products:[
-      {name:"メラノCC 薬用しみ集中対策 美容液", price:"約¥1,200", by:"友利新 先生", note:"ビタミンC・毛穴ケア", icon:"serum", url:""},        // 〜2,000円
-      {name:"オバジC10 セラム", price:"約¥4,400", by:"", note:"ビタミンC美容液・皮脂/毛穴", icon:"serum", url:""},                          // 2,000〜5,000円
-      {name:"オバジC25 セラム ネオ", price:"約¥11,000", by:"", note:"高濃度ビタミンC", icon:"serum", url:""},                              // 5,000円〜
+    routine:[
+      [ {name:"メラノCC 薬用しみ対策 美白化粧水", yen:990, note:"グリセリンフリーのさっぱり化粧水", icon:"lotion", sensNG:true, src:"かずのすけ"},
+        {name:"メラノCC 薬用しみ集中対策 プレミアム美容液", yen:1500, note:"ビタミンCで皮脂・毛穴をケア", icon:"serum", sensNG:true, src:"かずのすけ"},
+        {name:"無印良品 乳液・敏感肌用・さっぱりタイプ", yen:790, note:"グリセリン少なめで軽い仕上がり", icon:"lotion", src:"かずのすけ"} ],
+      [ {name:"エトヴォス 薬用 アクネVCローション I", yen:4180, note:"ビタミンC誘導体・オイルフリー", icon:"lotion", src:"かずのすけ"},
+        {name:"オバジC10セラム", yen:4400, note:"ピュアビタミンC10%", icon:"serum", sensNG:true, src:"かずのすけ・友利新"},
+        {name:"キュレル 皮脂トラブルケア 保湿ジェル", yen:2090, note:"ベタつかないセラミドケア", icon:"cream", src:"かずのすけ"} ],
+      [ {name:"リサージ スキンメインテナイザー DX 1", yen:11000, note:"ナイアシンアミド配合・オイリー肌向け", icon:"lotion", src:"友利新"},
+        {name:"ドクターシーラボ エンリッチ メディカリフト デュオセラム", yen:12100, note:"脂性肌でもベタつきにくい美容液", icon:"serum", sensNG:true, src:"友利新"},
+        {name:"ドクターケイ 薬用Cリンクルホワイトミルク", yen:8800, note:"ビタミンC系の軽い乳液", icon:"lotion", src:"友利新"} ],
     ] },
   dry:    { name:"乾燥肌", en:"Dry",
     desc:"皮脂も水分も不足ぎみ。つっぱり・粉ふき・小じわが出やすいタイプ。",
     care:"“水分を入れて油分でフタ”が基本。洗顔はぬるま湯で短時間、ゴシゴシしない。クリームやバームで水分の蒸発を防いで。",
     good:["セラミド","ヒアルロン酸","グリセリン","スクワラン","シアバター","アミノ酸"],
     bad:["高濃度アルコール","強い洗浄成分(脱脂)","刺激の強い酸・レチノールの使いすぎ"],
-    products:[
-      {name:"セザンヌ スキンコンディショナー 高保湿", price:"約¥800", by:"かずのすけ さん", note:"ヒト型セラミド3種・大容量", icon:"lotion", url:""},
-      {name:"ヒフミド エッセンスローション", price:"約¥3,300", by:"かずのすけ さん", note:"高濃度ヒト型セラミド", icon:"lotion", url:""},
-      {name:"エトヴォス モイスチャライジングセラム", price:"約¥5,500", by:"かずのすけ さん", note:"ヒト型セラミド5種", icon:"serum", url:""},
+    routine:[
+      [ {name:"セザンヌ スキンコンディショナー高保湿", yen:715, note:"ヒト型セラミド配合・大容量500mL", icon:"lotion", src:"かずのすけ"},
+        {name:"ジ・オーディナリー ヒアルロン酸 2% + B5", yen:1870, note:"ヒアルロン酸＋パンテノールで水分チャージ", icon:"serum", src:"友利新"},
+        {name:"ケアセラ APフェイス&ボディクリーム", yen:1320, note:"8種のセラミド配合", icon:"cream", src:"かずのすけ"} ],
+      [ {name:"ヒフミド エッセンスローション", yen:4730, note:"3種のヒト型セラミド", icon:"lotion", src:"かずのすけ"},
+        {name:"ジ・オーディナリー AT ソリューション 20 イン VF", yen:3740, note:"オイル状のビタミンCで保湿＋透明感", icon:"serum", src:"友利新"},
+        {name:"キュレル 潤浸保湿 フェイスクリーム", yen:2970, note:"セラミド機能成分・敏感肌にも", icon:"cream", src:"かずのすけ"} ],
+      [ {name:"コスメデコルテ 薬用 マイクロバーム ローション", yen:5500, note:"バームのようなうるおいの化粧液", icon:"lotion", src:"友利新"},
+        {name:"ONE BY KOSÉ セラムヴェール ディープリペア", yen:5500, note:"うるおいを逃がしにくくする導入美容液", icon:"serum", src:"友利新"},
+        {name:"エスティ ローダー アクア チャージ 薬用 ミルキー クリーム", yen:9900, note:"水分保持能の改善＋肌荒れ防止", icon:"cream", src:"友利新"} ],
     ] },
   combo:  { name:"混合肌（インナードライ）", en:"Combination",
     desc:"Tゾーンはテカるのに、ほおは乾く。水分不足が皮脂を招いているタイプ。",
     care:"全顔を一律でケアしないのがポイント。まず水分をしっかり。Tゾーンは軽く、ほお・口元は重ねづけで部位ごとに調整を。",
     good:["ナイアシンアミド","セラミド","ヒアルロン酸","ビタミンC誘導体(部分使い)"],
     bad:["全顔一律の強いケア","油分の塗りすぎ(Tゾーン)","保湿不足のさっぱりケアだけ"],
-    products:[
-      {name:"肌ラボ 白潤 薬用美白化粧水", price:"約¥850", by:"", note:"薬用美白・トラネキサム酸＆アラントイン", icon:"lotion", url:""},
-      {name:"ザ・オーディナリー ナイアシンアミド10%+亜鉛1%", price:"約¥2,500", by:"友利新 先生", note:"Tゾーンの皮脂・毛穴に", icon:"serum", url:""},
-      {name:"ヒフミド エッセンスクリーム", price:"約¥6,600", by:"かずのすけ さん", note:"乾く頬に高濃度セラミド", icon:"cream", url:""},
+    routine:[
+      [ {name:"肌ラボ 白潤 薬用美白化粧水", yen:900, note:"グリセリンフリー・トラネキサム酸＆アラントイン", icon:"lotion", src:"むっち指定"},
+        {name:"ジ・オーディナリー ナイアシンアミド 10% + 亜鉛 1%", yen:1100, note:"Tゾーンの皮脂・毛穴に", icon:"serum", sensNG:true, src:"友利新"},
+        {name:"無印良品 乳液・敏感肌用・さっぱりタイプ", yen:790, note:"軽いのでTゾーンにも", icon:"lotion", src:"かずのすけ"} ],
+      [ {name:"ミノン アミノモイスト エイジングケア ローション", yen:2420, note:"アミノ酸でしっとり・敏感肌向け", icon:"lotion", src:"友利新"},
+        {name:"キュレル 潤浸保湿 美容液", yen:2750, note:"セラミド機能成分で乾くほおに", icon:"serum", src:"かずのすけ"},
+        {name:"キュレル 皮脂トラブルケア 保湿ジェル", yen:2090, note:"ベタつかずTゾーンにも", icon:"cream", src:"かずのすけ"} ],
+      [ {name:"リサージ スキンメインテナイザー DX 1", yen:11000, note:"オイリー〜インナードライ肌向けの化粧液", icon:"lotion", src:"友利新"},
+        {name:"ラ ロッシュ ポゼ メラB3 セラム", yen:9350, note:"ナイアシンアミド配合・敏感肌にも", icon:"serum", src:"友利新"},
+        {name:"ヒフミド エッセンスクリーム", yen:6600, note:"高濃度ヒト型セラミドを乾くほおに", icon:"cream", sensNG:true, src:"かずのすけ"} ],
     ] },
   normal: { name:"普通肌", en:"Normal",
     desc:"皮脂と水分のバランスが良好。トラブルが少ない理想的なタイプ。",
     care:"いまの状態をキープするのが目標。季節で油分・水分を微調整し、UVケアと抗酸化で“先まわり”の予防を。",
     good:["セラミド","ヒアルロン酸","ビタミンC","ナイアシンアミド","日中のUVケア"],
     bad:["過度なケア(やりすぎ)","季節を無視した同じケアの継続"],
-    products:[
-      {name:"肌美精 薬用美白化粧水", price:"約¥1,430", by:"", note:"薬用美白・トラネキサム酸配合", icon:"lotion", url:""},
-      {name:"トランシーノ 薬用ホワイトニング クリアローションEX", price:"約¥3,520", by:"", note:"薬用美白・トラネキサム酸の化粧水", icon:"lotion", url:""},
-      {name:"ドクターケイ 薬用Cクリアホワイトローション", price:"約¥5,940", by:"", note:"薬用ビタミンC・ブライトニング化粧水", icon:"lotion", url:""},
+    routine:[
+      [ {name:"肌美精 薬用美白化粧水", yen:1430, note:"トラネキサム酸配合・アルコールフリー", icon:"lotion", src:"むっち指定"},
+        {name:"肌美精 薬用美白美容液", yen:1210, note:"化粧水と同じラインで美白ケア", icon:"serum", src:"むっち（Instagram美白編）"},
+        {name:"無印良品 乳液・敏感肌用・しっとりタイプ", yen:790, note:"シンプル処方でしっとり", icon:"lotion", src:"かずのすけ"} ],
+      [ {name:"トランシーノ 薬用ブライトニングクリアローション", yen:3630, note:"トラネキサム酸＋グリチルリチン酸2K", icon:"lotion", src:"むっち指定（EXの後継品）"},
+        {name:"オバジC10セラム", yen:4400, note:"ピュアビタミンC10%で透明感", icon:"serum", sensNG:true, src:"かずのすけ・友利新"},
+        {name:"トランシーノ 薬用ブライトニングクリアミルク", yen:3630, note:"化粧水と同じラインの美白乳液", icon:"lotion", src:"むっち指定の同ライン"} ],
+      [ {name:"ドクターケイ 薬用Cクリアホワイトローション", yen:5940, note:"薬用ビタミンC・ブライトニング化粧水", icon:"lotion", src:"むっち指定"},
+        {name:"ラ ロッシュ ポゼ メラB3 セラム", yen:9350, note:"肌トーンを整える・敏感肌にも", icon:"serum", src:"友利新"},
+        {name:"ドクターケイ 薬用Cリンクルホワイトミルク", yen:8800, note:"化粧水と同じラインの乳液", icon:"lotion", src:"友利新"} ],
     ] },
 };
 
-/* 価格帯の見出し（products配列の0/1/2番目に対応） */
+/* 価格帯 × 3ステップ（routine[価格帯][ステップ] に対応） */
+const STEPS = ["化粧水","美容液","保湿"];
 const TIERS = [
   {range:"〜2,000円",       label:"プチプラ"},
   {range:"2,000〜5,000円",  label:"デイリー"},
   {range:"5,000円〜",       label:"ご褒美"},
+];
+
+/* 敏感肌寄りのとき、sensNG の商品を同じ価格帯・同じステップのこちらに差し替える */
+const SENS_ALT = [
+  [ {name:"無印良品 化粧水・敏感肌用・さっぱりタイプ", yen:790, note:"シンプル処方・敏感肌用", icon:"lotion", src:"かずのすけ"},
+    {name:"ジ・オーディナリー ヒアルロン酸 2% + B5", yen:1870, note:"刺激になりにくい保湿美容液", icon:"serum", src:"友利新"},
+    {name:"ケアセラ APフェイス&ボディクリーム", yen:1320, note:"8種のセラミド・無香料", icon:"cream", src:"かずのすけ"} ],
+  [ {name:"ミノン アミノモイスト エイジングケア ローション", yen:2420, note:"アミノ酸でしっとり・敏感肌向け", icon:"lotion", src:"友利新"},
+    {name:"キュレル 潤浸保湿 美容液", yen:2750, note:"セラミド機能成分・敏感肌向け", icon:"serum", src:"かずのすけ"},
+    {name:"キュレル 潤浸保湿 フェイスクリーム", yen:2970, note:"セラミド機能成分・敏感肌向け", icon:"cream", src:"かずのすけ"} ],
+  [ {name:"コスメデコルテ 薬用 マイクロバーム ローション", yen:5500, note:"肌荒れ予防成分配合の化粧液", icon:"lotion", src:"友利新"},
+    {name:"ラ ロッシュ ポゼ メラB3 セラム", yen:9350, note:"敏感肌でも使いやすいブライトニング", icon:"serum", src:"友利新"},
+    {name:"エスティ ローダー アクア チャージ 薬用 ミルキー クリーム", yen:9900, note:"肌荒れ防止の有効成分配合", icon:"cream", src:"友利新"} ],
 ];
 
 const SENS = {
@@ -639,7 +681,8 @@ function iconSvg(type){
     + `<filter id="${id}" x="-25%" y="-25%" width="150%" height="150%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="${(iconUid*9)%64}" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.5"/></filter>`
     + `<g filter="url(#${id})">${shapes[type]||shapes.lotion}</g></svg>`;
 }
-function productCard(p){
+const yen = n => "¥" + n.toLocaleString("ja-JP");
+function productCard(p, si){
   const media = p.img
     ? `<span class="pphoto"><img src="${p.img}" alt="${p.name}" loading="lazy"></span>`
     : `<span class="pphoto illust">${iconSvg(p.icon)}</span>`;
@@ -647,21 +690,25 @@ function productCard(p){
     ? `<a class="pname" href="${p.url}" target="_blank" rel="noopener">${p.name}</a>`
     : `<span class="pname">${p.name}</span>`;
   const note = p.note ? `<span class="pnote2">${p.note}</span>` : "";
-  return `<div class="pcard">${media}<span class="pinfo">${name}${note}<span class="pmeta"><span class="pprice">${p.price}</span></span></span></div>`;
+  const swap = p.swapped ? `<span class="pswap">敏感肌向けに変更</span>` : "";
+  return `<div class="pcard">${media}<span class="pinfo"><span class="pstep">STEP${si+1}｜${STEPS[si]}</span>${name}${note}<span class="pmeta"><span class="pprice">約${yen(p.yen)}</span>${swap}</span></span></div>`;
 }
-function renderProducts(t){
-  if(!t.products) return "";
-  const rows = TIERS.map((tier,i)=>{
-    const p = t.products[i];
-    if(!p) return "";
+function renderProducts(t, sens){
+  const rows = TIERS.map((tier,ti)=>{
+    const items = t.routine[ti].map((p,si)=> (sens && p.sensNG) ? {...SENS_ALT[ti][si], swapped:true} : p);
+    const total = items.reduce((sum,p)=>sum+p.yen, 0);
     return `<div class="ptier">
-      <div class="ptier-head"><span class="ptier-range">${tier.range}</span><span class="ptier-label">${tier.label}</span></div>
-      <div class="pcards">${productCard(p)}</div>
+      <div class="ptier-head"><span class="ptier-range">${tier.range}で揃える</span><span class="ptier-label">${tier.label}</span><span class="ptier-total">3品で約${yen(total)}</span></div>
+      <div class="pcards">${items.map(productCard).join("")}</div>
     </div>`;
   }).join("");
+  const sensNote = sens
+    ? `<p class="psens">敏感肌寄りのため、刺激になりやすい成分（香料・エタノール・高濃度のビタミンCなど）を含むアイテムは、低刺激のものに入れ替えています。</p>`
+    : "";
   return `<div class="panel products-panel">
     <h3><span class="dot"></span>価格帯別のおすすめ</h3>
-    <p class="pnote">あなたの肌タイプに合うアイテムを、お手頃〜ご褒美まで。</p>
+    <p class="pnote">化粧水→美容液→保湿の3ステップを、予算に合わせて選べます。</p>
+    ${sensNote}
     ${rows}
     <p class="psource">※ 価格は目安です。</p>
   </div>`;
@@ -724,7 +771,7 @@ function showResult(){
     </div>
     ${concernPanel}
     ${sensPanel}
-    ${renderProducts(t)}
+    ${renderProducts(t, r.sens)}
 
     <div class="panel voice">
       <img src="assets/skin-check-supervisor.jpg" alt="監修者 むっち">
