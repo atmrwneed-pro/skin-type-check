@@ -954,7 +954,7 @@ function toggleHist(btn){
   const p=document.getElementById("histPanel");
   const open=p.classList.toggle("hidden")===false;
   btn.setAttribute("aria-expanded", open);
-  btn.textContent = open ? "記録のグラフを閉じる" : `これまでの記録をグラフで見る（${hist.length}回分）`;
+  btn.textContent = open ? "記録のグラフを閉じる" : `記録をグラフで見る（${hist.length}回分）`;
   if(open) renderHistPanel();
 }
 function clearHist(){
@@ -991,7 +991,7 @@ function showResult(){
   histAxis = careIdx.length ? careIdx[0] : 0;
   const histArea = hist.length>=2
     ? `<p class="compare">${compareLine(prev, vals)}</p>
-       <button type="button" class="btn ghost small" aria-expanded="false" onclick="toggleHist(this)">これまでの記録をグラフで見る（${hist.length}回分）</button>`
+       <button type="button" class="btn ghost small" aria-expanded="false" onclick="toggleHist(this)">記録をグラフで見る（${hist.length}回分）</button>`
     : `<p class="hist-note">次回からは、前回との比較やグラフが見られます（記録はこの端末にだけ保存されます）。</p>`;
   storyData = {t, r, vals, careIdx};
 
